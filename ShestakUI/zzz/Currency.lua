@@ -52,13 +52,13 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 	for i = 1, #Currency do 
 		local icon = CreateFrame("Frame", nil, f) 
 		icon:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 0, 25*i+3*(i+1))
-		icon:SetSize(13, 13)
+		icon:SetSize(16, 16)
 		icon.texture = icon:CreateTexture(nil, "ARTWORK") 
 		icon.texture:SetAllPoints(icon) 
 		icon.texture:SetTexCoord(.1, .9, .1, .9) 
 		icon.text = icon:CreateFontString() 
 		icon.text:SetPoint("LEFT", icon, "RIGHT", 3, 0) 
-		icon.text:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE") 
+		icon.text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE") 
 		icon.text:SetShadowOffset(1, 1) 
 		icon.text:SetShadowColor(0, 0, 0, .7) 
 		f.icon[i] = icon 
@@ -87,10 +87,21 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 	end)
 	
 	-- Collapse stuff
-	self:SetScript("OnEnter", function(self, ...)
-		f:Show()
+	self:SetScript("OnMouseDown", function(self) 
+		if f:IsShown() then
+			f:Hide()
+		else
+			f:Show()
+		end
 	end)
-	self:SetScript("OnLeave", function(self, ...)
-		f:Hide()
+	
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:SetScript("OnEvent", function(self, event)
+		if event == "PLAYER_REGEN_ENABLED" then
+			f:Show()
+		elseif event == "PLAYER_REGEN_DISABLED" then
+			f:Hide()
+		end
 	end)
 end)
