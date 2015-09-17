@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------------
 --	聊天內容自動滾動到底部
 ----------------------------------------------------------------------------------------
-if C.zzz.Chat_scrolldown == true then
+if C.zzz.Chat_ScrollDown == true then
 	local Runtime = 20  -- Change this value if you want a different delay between your last scroll and the time the frame resets.  This value is in seconds.
 
 	local frame, handlers, running = CreateFrame("Frame"), {}, {}
