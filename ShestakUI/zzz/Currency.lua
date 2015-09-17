@@ -4,22 +4,29 @@ if C.zzz.Currency ~= true then return end
 ----------------------------------------------------------------------------------------
 --	常用货币显示
 ----------------------------------------------------------------------------------------
-local Currencyframe = CreateFrame("Button", "Currencyframe", UIParent, "SecureHandlerClickTemplate, SecureHandlerStateTemplate")
+local Currencyframe = CreateFrame("Button", "Currencyframe", UIParent)
 --Currencyframe:CreateBackdrop()
 Currencyframe:RegisterEvent("ADDON_LOADED")
 Currencyframe:SetScript("OnEvent",function(self, event)
-	local cfg = {
-		Collapsed = true,
-		BarBottom = true,
-		CollapseInCombat = true,
-	}
+	
+	local Currency = {
+		390,
+		392,
+		994,	--钢化命运印记
+		1129,	--既定命运徽记
+		823,	--埃匹希斯水晶
+		824,	--要塞物资
+		1101,	--原油
+	} 
+	
+	local BarBottom = true		--标题在下
 	
 	self:UnregisterEvent("ADDON_LOADED")
 	self:SetPoint("CENTER")
 	self:SetSize(100, 10)
 	self:SetMovable(true)
-	self:IsUserPlaced(true)
-	self:SetClampedToScreen(true)
+	--self:IsUserPlaced(true)
+	--self:SetClampedToScreen(true)
 	self:RegisterForDrag("LeftButton")
 	self:SetScript("OnDragStart", self.StartMoving)
 	self:SetScript("OnDragStop", self.StopMovingOrSizing)
@@ -33,23 +40,14 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 	
 	local f = CreateFrame("Frame", nil, self)
 	f:Hide()
-	if cfg.BarBottom then
-		f:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 0)
+	if BarBottom then
+		f:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 10)
 	else
 		f:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 0)
 	end
 	f:SetSize(100, 300)
 	--f:CreateBackdrop()
 
-	local Currency = {
-		390,
-		392,
-		994,	--钢化命运印记
-		1129,	--既定命运徽记
-		823,	--埃匹希斯水晶
-		824,	--要塞物资
-		1101,	--原油
-	} 
 	f.icon = {} 
 	for i = 1, #Currency do 
 		local icon = CreateFrame("Frame", nil, f) 
@@ -89,34 +87,10 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 	end)
 	
 	-- Collapse stuff
-	self:SetAttribute("Collapsed", cfg.Collapsed)
-	self:SetAttribute("Update", [[
-		if self:GetAttribute("Collapsed") then
-			self:GetFrameRef("f"):Hide()
-		else
-			self:GetFrameRef("f"):Show()
-		end
-	]]);
-	self:SetAttribute("_onclick", [[
-		self:SetAttribute("Collapsed", not self:GetAttribute("Collapsed"))
-		self:RunAttribute("Update")
-	]]);
-	self:HookScript("OnClick", function()
-		Collapsed = self:GetAttribute("Collapsed")
+	self:SetScript("OnEnter", function(self, ...)
+		f:Show()
 	end)
-	RegisterStateDriver(self, "combat", "[combat]1;2;")
-	self:SetAttribute("_onstate-combat", "self:RunAttribute('Update')")
-	self:SetFrameRef("f", f)
-	
-	if cfg.CollapseInCombat then
-		self:RegisterEvent("PLAYER_REGEN_ENABLED")
-		self:RegisterEvent("PLAYER_REGEN_DISABLED")
-		self:HookScript("OnEvent", function(self, event)
-			if event == "PLAYER_REGEN_ENABLED" then
-				f:Show()
-			elseif event == "PLAYER_REGEN_DISABLED" then
-				f:Hide()
-			end
-		end)
-	end
+	self:SetScript("OnLeave", function(self, ...)
+		f:Hide()
+	end)
 end)
