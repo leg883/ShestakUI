@@ -95,12 +95,9 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 		end
 	end)
 	
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:SetScript("OnEvent", function(self, event)
-		if event == "PLAYER_REGEN_ENABLED" then
-			f:Show()
-		elseif event == "PLAYER_REGEN_DISABLED" then
+		if event == "PLAYER_REGEN_DISABLED" then
 			f:Hide()
 		end
 	end)
