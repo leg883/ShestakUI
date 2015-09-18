@@ -2,90 +2,170 @@
 if C.zzz.Currency ~= true then return end
 
 ----------------------------------------------------------------------------------------
---	常用货币显示
+--	config
 ----------------------------------------------------------------------------------------
-local Currencyframe = CreateFrame("Button", "Currencyframe", UIParent)
---Currencyframe:CreateBackdrop()
-Currencyframe:RegisterEvent("ADDON_LOADED")
-Currencyframe:SetScript("OnEvent",function(self, event)
-	
-	local Currency = {
-		390,
-		392,
-		994,	--钢化命运印记
-		1129,	--既定命运徽记
-		823,	--埃匹希斯水晶
-		824,	--要塞物资
-		1101,	--原油
-	} 
-	
-	local BarBottom = true		--标题在下
-	
-	self:UnregisterEvent("ADDON_LOADED")
-	self:SetPoint("CENTER")
-	self:SetSize(100, 10)
-	self:SetMovable(true)
-	--self:IsUserPlaced(true)
-	--self:SetClampedToScreen(true)
-	self:RegisterForDrag("LeftButton")
-	self:SetScript("OnDragStart", self.StartMoving)
-	self:SetScript("OnDragStop", self.StopMovingOrSizing)
-	
-	local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
-	local title = self:CreateFontString(nil, "ARTWORK")
-	title:SetFont("Fonts\\ARIALN.TTF", 12, "OUTLINE")
-	title:SetPoint("LEFT")
-	title:SetText("常用货币")
-	title:SetTextColor(color.r, color.g, color.b)
-	
-	local f = CreateFrame("Frame", nil, self)
-	f:Hide()
-	if BarBottom then
-		f:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 10)
-	else
-		f:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 0)
-	end
-	f:SetSize(100, 300)
-	--f:CreateBackdrop()
+local Currency = {
+	--[[
+	-- Old
+	241,	-- Champion's Seal
+	361,	-- Illustrious Jewelcrafter's Token
+	390,	-- Conquest Points
+	391,	-- Tol Barad Commendation
+	392,	-- Honor Points
+	395,	-- Justice Points
+	396,	-- Valor Points
+	402,	-- Ironpaw Token
+	416,	-- Mark of the World Tree
+	515,	-- Darkmoon Prize Ticket
+	61,		-- Dalaran Jewelcrafter's Token
+	614,	-- Mote of Darkness
+	615,	-- Essence of Corrupted Deathwing
+	697,	-- Elder Charm of Good Fortune
+	738,	-- Lesser Charm of Good Fortune
+	752,	-- Mogu Rune of Fate
+	776,	-- Warforged Seal
+	777,	-- Timeless Coin
+	789,	-- Bloody Coin
+	81,		-- Epicurean's Award
+	402,	-- Ironpaw Token
+	384,	-- Dwarf Archaeology Fragment
+	385,	-- Troll Archaeology Fragment
+	393,	-- Fossil Archaeology Fragment
+	394,	-- Night Elf Archaeology Fragment
+	397,	-- Orc Archaeology Fragment
+	398,	-- Draenei Archaeology Fragment
+	399,	-- Vrykul Archaeology Fragment
+	400,	-- Nerubian Archaeology Fragment
+	401,	-- Tol'vir Archaeology Fragment	
+	676,	-- Pandaren Archaeology Fragment
+	677,	-- Mogu Archaeology Fragment
+	754,	-- Mantid Archaeology Fragment
+	]]
 
-	f.icon = {} 
+	-- WoD
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
+	824,	-- Garrison Resources
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	944,	-- Artifact Fragment (PvP)
+	1101,	-- Oil
+	1129,	-- Seal of Inevitable Fate
+	1166, 	-- Timewarped Badge (6.22)
+} 
+local BarBottom = true		--标题在下
+local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
+
+----------------------------------------------------------------------------------------
+--	function
+----------------------------------------------------------------------------------------
+local function UpdateCurrency(self, event)
+	self.icon = {}
 	for i = 1, #Currency do 
-		local icon = CreateFrame("Frame", nil, f) 
-		icon:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 0, 25*i+3*(i+1))
+		local _, amount, _, _, _, totalMax = GetCurrencyInfo(Currency[i]) 
+		local icon = CreateFrame("Frame", nil, self) 
+		icon:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 40*i+3*(i+1))
 		icon:SetSize(16, 16)
+		icon:CreateBackdrop("Default")
+		
 		icon.texture = icon:CreateTexture(nil, "ARTWORK") 
 		icon.texture:SetAllPoints(icon) 
 		icon.texture:SetTexCoord(.1, .9, .1, .9) 
-		icon.text = icon:CreateFontString() 
-		icon.text:SetPoint("LEFT", icon, "RIGHT", 3, 0) 
-		icon.text:SetFont(STANDARD_TEXT_FONT, 14, "OUTLINE") 
-		icon.text:SetShadowOffset(1, 1) 
-		icon.text:SetShadowColor(0, 0, 0, .7) 
-		f.icon[i] = icon 
+		
+		icon.Status = CreateFrame('StatusBar', nil, icon)
+		icon.Status:CreateBackdrop("Default")
+		icon.Status:SetStatusBarTexture(C.media.blank)
+		if totalMax == 0 then
+			icon.Status:SetMinMaxValues(0, amount)
+		else
+			icon.Status:SetMinMaxValues(0, totalMax)
+		end
+		icon.Status:SetValue(amount)
+		icon.Status:SetStatusBarColor(color.r, color.g, color.b)
+		icon.Status:SetSize(100, 3)
+		icon.Status:ClearAllPoints()
+		icon.Status:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -7)
+		
+		--icon.spark = icon.Status:CreateTexture(nil, 'OVERLAY', nil)
+		--icon.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
+		--icon.spark:SetSize(10, 10)
+		--icon.spark:SetBlendMode('ADD')
+		--icon.spark:SetPoint('CENTER', icon.Status:GetStatusBarTexture(), 'RIGHT')
+
+		icon.text = icon.Status:CreateFontString(nil, 'OVERLAY')
+		icon.text:SetPoint("LEFT", icon, "RIGHT", 10, 0)
+		icon.text:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+		icon.text:SetShadowOffset(1, -1)
+		icon.text:SetShadowColor(0, 0, 0, .7)
+		
+		self.icon[i] = icon 
 	end 
 
-	local GetCurrencyInfo, select, sub = GetCurrencyInfo, select, string.sub 
+	local GetCurrencyInfo = GetCurrencyInfo
 	for i = 1, #Currency do 
 		local label, _, icon = GetCurrencyInfo(Currency[i]) 
-		f.icon[i].texture:SetTexture(icon) 
-		f.icon[i]:SetScript("OnEnter", function() 
+		self.icon[i].texture:SetTexture(icon) 
+		self.icon[i]:SetScript("OnEnter", function() 
 			_G["GameTooltip"]:ClearLines() 
-			_G["GameTooltip"]:SetOwner(f.icon[i], "ANCHOR_LEFT") 
-			_G["GameTooltip"]:AddLine(sub(label, 1, 6)) 
+			_G["GameTooltip"]:SetOwner(self.icon[i], "ANCHOR_LEFT") 
+			_G["GameTooltip"]:AddLine(label)
 			_G["GameTooltip"]:Show() 
 		end)
-		f.icon[i]:SetScript("OnLeave", function() 
+		self.icon[i]:SetScript("OnLeave", function() 
 			_G["GameTooltip"]:Hide() 
 		end) 
 	end 
 
-	f:RegisterEvent("CURRENCY_DISPLAY_UPDATE") 
-	f:SetScript("OnEvent", function() 
-		for i = 1, #Currency do 
-			f.icon[i].text:SetText(select(2, GetCurrencyInfo(Currency[i]))) 
-		end 
-	end)
-	
+	for i = 1, #Currency do 
+		local _, amount, _, _, _, totalMax = GetCurrencyInfo(Currency[i])
+		if totalMax == 0 then
+			self.icon[i].text:SetText(format('%s', amount))
+		else
+			self.icon[i].text:SetText(format('%s / %s', amount, totalMax))
+		end
+	end 
+end
+
+----------------------------------------------------------------------------------------
+--	main
+----------------------------------------------------------------------------------------
+local title = CreateFrame("Button", "Currency_title", UIParent)
+title:RegisterEvent("ADDON_LOADED")
+title:SetScript("OnEvent",function(self, event)
+	self:UnregisterEvent("ADDON_LOADED")
+
+	self:SetSize(100, 10)
+	self:SetPoint("CENTER")
+	self:SetMovable(true)
+	self:RegisterForDrag("LEFTBUTTON")
+	self:SetScript("OnDragStart", self.StartMoving)
+	self:SetScript("OnDragStop", self.StopMovingOrSizing)
+	--self:CreateBackdrop()
+
+	self.text = self:CreateFontString(nil, "ARTWORK")
+	self.text:SetFont("Fonts\\ARIALN.TTF", 12, "OUTLINE")
+	self.text:SetPoint("LEFT")
+	self.text:SetText("常用货币")
+	self.text:SetTextColor(color.r, color.g, color.b)
+
+	local f = CreateFrame("Frame", "Currency_frame", title)
+	f:Hide()
+	if BarBottom then
+		f:SetPoint("BOTTOMLEFT", title, "TOPLEFT", 0, 10)
+	else
+		f:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, 0)
+	end
+	f:SetSize(100, 300)
+	--f:CreateBackdrop()
+
+	f:RegisterEvent('PLAYER_ENTERING_WORLD')
+	f:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+	f:RegisterEvent('PLAYER_HONOR_GAIN')
+	f:SetScript("OnEvent", UpdateCurrency)
+	--f:SetScript("OnUpdate", UpdateCurrency)
+
 	-- Collapse stuff
 	self:SetScript("OnMouseDown", function(self) 
 		if f:IsShown() then
@@ -94,7 +174,6 @@ Currencyframe:SetScript("OnEvent",function(self, event)
 			f:Show()
 		end
 	end)
-	
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:SetScript("OnEvent", function(self, event)
 		if event == "PLAYER_REGEN_DISABLED" then
