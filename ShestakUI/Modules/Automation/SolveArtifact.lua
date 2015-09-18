@@ -26,6 +26,9 @@ local fragment = {
 	["676"] = 11,	-- Pandaren
 	["677"] = 12,	-- Mogu
 	["754"] = 10,	-- Mantid
+	["821"] = 14,   -- Draenor Clans
+	["828"] = 15,   -- Ogre
+	["829"] = 13,   -- Arakkoa
 }
 
 local _CURRENCY = string.gsub(string.gsub(CURRENCY_GAINED_MULTIPLE, "%%s", "(.+)"), "%%d", "(.+)")
