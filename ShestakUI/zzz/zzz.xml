@@ -1,0 +1,29 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Model.lua"/>
+	<Script file="CombatAlert.lua"/>
+	<Script file="Difficulty.lua"/>
+	<Script file="Fish.lua"/>
+	<Script file="Focuser.lua"/>
+	<Script file="Chat.lua"/>
+	<Script file="Worldmap.lua"/>
+	<Script file="Loot.lua"/>
+	<Script file="MapBoss3D.lua"/>
+	<Script file="MiniTrinketMenu.lua"/>
+	<Script file="Rollbar.lua"/>
+	<Script file="MicroButton.lua"/>
+	<Script file="MacroTooltip.lua"/>
+	<Script file="ObjectiveTracker.lua"/>
+	<Script file="Currency.lua"/>
+	<Script file="BodyguardFocusAlert.lua"/>
+	<Script file="MicroMenu.lua"/>
+	<Script file="SuddenDeath.lua"/>
+	<Script file="SnowfallCursor.lua"/>
+	<Script file="Tip.lua"/>
+	<Script file="Iskar.lua"/>
+	<Script file="QuickTalents.lua"/>
+	<Script file="Misc.lua"/>
+	<Script file="AFK.lua"/>
+	<Script file="Threat\Threat.lua"/>
+
+
+</Ui>

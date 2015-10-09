@@ -40,6 +40,12 @@ local function Shared(self, unit)
 	self:CreateBackdrop("Default")
 	self:SetFrameStrata("BACKGROUND")
 
+	-- ClassBarAnchor
+		local classbaranchor = CreateFrame("Frame", "ClassBarAnchor", self)
+		classbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.unitframes.class_bar))
+		classbaranchor:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
+		classbaranchor:SetFrameStrata("LOW")
+	
 	-- Health bar
 	self.Health = CreateFrame("StatusBar", self:GetName().."_Health", self)
 	if unit == "player" or unit == "target" then	--修改
@@ -182,6 +188,43 @@ local function Shared(self, unit)
 		self.Power.value:SetJustifyH("LEFT")
 	end
 
+	--[[if unit == "player" then
+		
+		--Ext_PowerBar
+		self.Power_ext = CreateFrame("StatusBar", self:GetName().."_Power_ext", classbaranchor)
+		self.Power_ext:SetSize(217, 7+3)
+		self.Power_ext:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
+		self.Power_ext:SetStatusBarTexture(C.media.texture)
+		self.Power_ext:CreateBackdrop("Default", "Shadow")
+		
+		self.Power_ext.frequentUpdates = true
+		self.Power_ext.colorDisconnected = true
+		self.Power_ext.colorTapping = true
+		if C.unitframe.own_color == true then
+			self.Power_ext.colorClass = true
+		else
+			self.Power_ext.colorPower = true
+		end
+		if C.unitframe.plugins_smooth_bar == true then
+			self.Power_ext.Smooth = true
+		end
+		self.Power_ext.PreUpdate = T.PreUpdatePower
+		self.Power_ext.PostUpdate = T.PostUpdatePower
+		
+		self.Power_ext.bg = self.Power_ext:CreateTexture(nil, "BORDER")
+		self.Power_ext.bg:SetAllPoints()
+		self.Power_ext.bg:SetTexture(C.media.texture)
+		if C.unitframe.own_color == true then
+			self.Power_ext.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
+		else
+			self.Power_ext.bg.multiplier = 0.2
+		end
+		self.Power_ext.value = T.SetFontString(self.Power_ext, C.font.unit_frames_font, C.font.unit_frames_font_size-1, C.font.unit_frames_font_style)
+		self.Power_ext.value:SetPoint("CENTER", self.Power_ext, "CENTER", 0, 0)
+		self.Power_ext.value:SetJustifyH("CENTER")
+	end]]
+	
+	
 	-- Names
 	if unit ~= "player" then
 		self.Info = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
@@ -276,11 +319,7 @@ local function Shared(self, unit)
 			self.LFDRole:SetTexture("Interface\\AddOns\\ShestakUI_Media\\Media\\Icon\\lfd_role")	--定义icon材质
 		end
 		
-		-- ClassBarAnchor
-		local classbaranchor = CreateFrame("Frame", "ClassBarAnchor", self)
-		classbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.unitframes.class_bar))
-		classbaranchor:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
-		classbaranchor:SetFrameStrata("LOW")
+		
 		
 		-- Rune bar
 		if C.unitframe_class_bar.rune == true and T.class == "DEATHKNIGHT" then
@@ -1413,6 +1452,8 @@ local function Shared(self, unit)
 
 	T.HideAuraFrame(self)
 	return self
+	
+
 end
 
 ----------------------------------------------------------------------------------------

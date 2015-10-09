@@ -561,6 +561,7 @@ C["zzz"] = {
 	["Model_rotate"] = true,
 	["Chat_ScrollDown"] = true,
 	["Chat_HideLanguage"] = true,
+	["Chat_BigFoot"] = true,
 	["CombatAlert"] = true,
 	["MapBoss3D"] = true,
 	["WorldMap"] = true,

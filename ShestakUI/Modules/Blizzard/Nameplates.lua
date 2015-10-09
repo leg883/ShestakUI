@@ -388,10 +388,17 @@ local function SkinObjects(frame, nameFrame)
 	hp.TargetIndicator = CreateFrame("Frame", self:GetName().."_TargetIndicator", hp)
 	hp.TargetIndicator:SetFrameLevel(0)
 	hp.TargetIndicator:SetFrameStrata("BACKGROUND")
-
+	hp.TargetIndicator:SetBackdrop( {
+ 		edgeFile = "Interface\\AddOns\\zUI\\Media\\glow", edgeSize = 3,
+ 		insets = {left = 5, right = 5, top = 5, bottom = 5},
+ 	})
+	hp.TargetIndicator:SetBackdropBorderColor(1, 1, 1, 1)
+	hp.TargetIndicator:SetScale(T.noscalemult*5)
+	hp.TargetIndicator:SetOutside(hp, 3, 3)
+--[[
 	hp.TargetIndicator.bordertop = hp.TargetIndicator:CreateTexture(nil, "BORDER")
 	hp.TargetIndicator.bordertop:SetPoint("BOTTOM", hp, "TOP", T.noscalemult * 0, T.noscalemult * 3)
-	hp.TargetIndicator.bordertop:SetSize(T.noscalemult*140, T.noscalemult*14)
+	hp.TargetIndicator.bordertop:SetSize(T.noscalemult*140, T.noscalemult*20)
 	hp.TargetIndicator.bordertop:SetTexture("Interface\\AddOns\\zUI\\Media\\Loc-RedLine-Top")
 	hp.TargetIndicator.bordertop:SetBlendMode("ADD")
 	--hp.TargetIndicator.bordertop:SetVertexColor(T.color.r, T.color.g, T.color.b)
@@ -400,48 +407,31 @@ local function SkinObjects(frame, nameFrame)
 
 	hp.TargetIndicator.borderbottom = hp.TargetIndicator:CreateTexture(nil, "BORDER")
 	hp.TargetIndicator.borderbottom:SetPoint("TOP", hp, "BOTTOM", T.noscalemult * 0, -T.noscalemult * 3)
-	hp.TargetIndicator.borderbottom:SetSize(T.noscalemult*140, T.noscalemult*14)
+	hp.TargetIndicator.borderbottom:SetSize(T.noscalemult*140, T.noscalemult*20)
 	hp.TargetIndicator.borderbottom:SetTexture("Interface\\AddOns\\zUI\\Media\\Loc-RedLine-Bottom")
 	hp.TargetIndicator.borderbottom:SetBlendMode("ADD")
-	--hp.TargetIndicator.borderbottom:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.borderbottom:SetVertexColor(1, 0, 1, 1)
+	hp.TargetIndicator.borderbottom:SetVertexColor(T.color.r, T.color.g, T.color.b)
+	--hp.TargetIndicator.borderbottom:SetVertexColor(1, 0, 1, 1)
 	hp.TargetIndicator.borderbottom:SetDrawLayer("BORDER", -8)
---[[
+]]--[[
 	hp.TargetIndicator.borderleft = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.borderleft:SetPoint("RIGHT", hp, "LEFT", -T.noscalemult * 3, T.noscalemult * 0)
-	hp.TargetIndicator.borderleft:SetSize(T.noscalemult*13, T.noscalemult*33)
-	hp.TargetIndicator.borderleft:SetTexture("Interface\\AddOns\\zzz\\Media\\Loc-RedLine-Left")
-	hp.TargetIndicator.borderleft:SetBlendMode("ADD")
+	hp.TargetIndicator.borderleft:SetPoint("RIGHT", hp, "TOPLEFT", T.noscalemult * 0, T.noscalemult * 0)
+	hp.TargetIndicator.borderleft:SetSize(T.noscalemult*30, T.noscalemult*30)
+	hp.TargetIndicator.borderleft:SetTexture("Interface\\AddOns\\zUI\\Media\\left")
+	--hp.TargetIndicator.borderleft:SetBlendMode("ADD")
 	--hp.TargetIndicator.borderleft:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.borderleft:SetVertexColor(1, 0, 1, 1)
+	--hp.TargetIndicator.borderleft:SetVertexColor(1, 0, 1, 1)
 	hp.TargetIndicator.borderleft:SetDrawLayer("BORDER", -8)
 	
 	hp.TargetIndicator.borderright = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.borderright:SetPoint("LEFT", hp, "RIGHT", T.noscalemult * 3, T.noscalemult * 0)
-	hp.TargetIndicator.borderright:SetSize(T.noscalemult*13, T.noscalemult*33)
-	hp.TargetIndicator.borderright:SetTexture("Interface\\AddOns\\zzz\\Media\\Loc-RedLine-Right")
-	hp.TargetIndicator.borderright:SetBlendMode("ADD")
+	hp.TargetIndicator.borderright:SetPoint("LEFT", hp, "TOPRIGHT", T.noscalemult * 0, T.noscalemult * 0)
+	hp.TargetIndicator.borderright:SetSize(T.noscalemult*30, T.noscalemult*30)
+	hp.TargetIndicator.borderright:SetTexture("Interface\\AddOns\\zUI\\Media\\right")
+	--hp.TargetIndicator.borderright:SetBlendMode("ADD")
 	--hp.TargetIndicator.borderright:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.borderright:SetVertexColor(1, 0, 1, 1)
+	--hp.TargetIndicator.borderright:SetVertexColor(1, 0, 1, 1)
 	hp.TargetIndicator.borderright:SetDrawLayer("BORDER", -8)
-	]]--
---[[
-	hp.TargetIndicator.borderleft = hp.TargetIndicator:CreateFontString(nil, "ARTWORK")
-	hp.TargetIndicator.borderleft:SetPoint("RIGHT", hp.level, "LEFT", T.noscalemult * 3, T.noscalemult * 3)
-	hp.TargetIndicator.borderleft:SetFont(STANDARD_TEXT_FONT, 100, "OUTLINE")
-	hp.TargetIndicator.borderleft:SetText("[")
-	hp.TargetIndicator.borderleft:SetTextColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.borderleft:SetDrawLayer("BORDER", -8)
-	hp.TargetIndicator.borderleft:SetJustifyH("RIGHT")
-
-	hp.TargetIndicator.borderright = hp.TargetIndicator:CreateFontString(nil, "ARTWORK")
-	hp.TargetIndicator.borderright:SetPoint("LEFT", hp, "RIGHT", T.noscalemult * 0, T.noscalemult * 3)
-	hp.TargetIndicator.borderright:SetFont(STANDARD_TEXT_FONT, 100, "OUTLINE")
-	hp.TargetIndicator.borderright:SetText(" ]")
-	hp.TargetIndicator.borderright:SetTextColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.borderright:SetDrawLayer("BORDER", -8)
-	hp.TargetIndicator.borderright:SetJustifyH("LEFT")
-]]--	
+]]
 	hp.TargetIndicator:Hide()
 --	--
 

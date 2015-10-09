@@ -10,6 +10,7 @@
 	<Script file="Finalize.lua"/>
 
 	<Script file="Elements\Power.lua"/>
+	<Script file="Elements\Power_player.lua"/>
 	<Script file="Elements\Aura.lua"/>
 	<Script file="Elements\Health.lua"/>
 	<Script file="Elements\CPoints.lua"/>
@@ -60,6 +61,7 @@
 	<Script file="Modules\TotemBar.lua"/>
 	<Script file="Modules\Trinkets.lua"/>
 	<Script file="Modules\Vengeance.lua"/>
+
 
 	<!-- Clique Support -->
 	<Button name="oUF_ClickCastUnitTemplate" virtual="true" inherits="SecureUnitButtonTemplate,SecureHandlerEnterLeaveTemplate">

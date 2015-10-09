@@ -27,7 +27,7 @@ local function LoadSkin()
 		SideDressUpFrame:ClearAllPoints()
 		SideDressUpFrame:SetPoint("TOPLEFT", AuctionFrame, "TOPRIGHT", 3, 0)
 	end)
-	
+
 	--WoW Token Tutorial Frame
 	WowTokenGameTimeTutorial:CreateBackdrop("Transparent")
 	T.SkinCloseButton(WowTokenGameTimeTutorial.CloseButton)
@@ -50,7 +50,7 @@ local function LoadSkin()
 	WowTokenGameTimeTutorialBottomBorder:SetAlpha(0)
 	WowTokenGameTimeTutorialLeftBorder:SetAlpha(0)
 	WowTokenGameTimeTutorialRightBorder:SetAlpha(0)
-	
+
 	do
 		local Token = BrowseWowTokenResults.Token
 		local icon = Token.Icon
@@ -60,7 +60,7 @@ local function LoadSkin()
 			Token:StyleButton()
 			Token:CreateBackdrop("Transparent")
 	end
-	
+
 	-- Progress Frame
 	AuctionProgressFrame:StripTextures()
 	AuctionProgressFrame:SetTemplate("Transparent")
@@ -114,7 +114,7 @@ local function LoadSkin()
 		_G[button]:SkinButton(true)
 	end
 	BrowseWowTokenResults.Buyout:SkinButton(true)
-	
+
 	-- Fix Button Positions
 	AuctionsCloseButton:SetPoint("BOTTOMRIGHT", AuctionFrameAuctions, "BOTTOMRIGHT", 66, 10)
 	AuctionsCancelAuctionButton:SetPoint("RIGHT", AuctionsCloseButton, "LEFT", -4, 0)
@@ -174,12 +174,12 @@ local function LoadSkin()
 		local tab = _G["AuctionFilterButton"..i]
 		tab:StyleButton()
 	end
-		
+
 	hooksecurefunc("FilterButton_SetType", function(button)
 		local tex = button:GetNormalTexture();
 		tex:SetAlpha(0)
 	end)
-	
+
 	local editboxs = {
 		"BrowseName",
 		"BrowseMinLevel",
@@ -316,7 +316,7 @@ local function LoadSkin()
 	AuctionFrameAuctions.bg2:SetPoint("TOPLEFT", AuctionFrameAuctions.bg1, "TOPRIGHT", 3, 0)
 	AuctionFrameAuctions.bg2:SetPoint("BOTTOMRIGHT", AuctionFrame, -8, 35)
 	AuctionFrameAuctions.bg2:SetFrameLevel(AuctionFrameAuctions.bg2:GetFrameLevel() - 2)
-	
+
 	-- Auctionator
 	if not IsAddOnLoaded("Auctionator") then return end
 
@@ -350,7 +350,8 @@ local function LoadSkin()
 		"Atr_Buy_Confirm_CancelBut",
 		"Atr_MngSListsButton",
 		"Auctionator_Search",
-		"Atr_SaveThisList_Button"
+		"Atr_SaveThisList_Button",
+		"Atr_Exact_Search_Button",
 	}
 
 	for i = 1, getn(buttons) do
@@ -456,20 +457,25 @@ local function LoadSkin()
 	Atr_Hilite1.backdrop:SetPoint("BOTTOMRIGHT", 3, -1)
 
 	Atr_Search_Box:SetHeight(Atr_Search_Box:GetHeight() - 2)
-	Auctionator1Button:SetHeight(22)
+	Auctionator1Button:SetSize(66, 18)
+	Auctionator1Button:ClearAllPoints()
+	Auctionator1Button:SetPoint("TOPRIGHT", Atr_Main_Panel, "TOPRIGHT", -35, -4)
 	Atr_Search_Button:SetHeight(22)
 	Atr_Adv_Search_Button:SetHeight(22)
+	Atr_Adv_Search_Button:SetPoint("BOTTOMLEFT", Atr_Search_Button, "TOPRIGHT", 3, 3)
+	Atr_Exact_Search_Button:SetHeight(22)
+	Atr_Exact_Search_Button:SetPoint("TOP", Atr_Adv_Search_Button, "BOTTOM", 0, -3)
 	Atr_Back_Button:SetHeight(22)
-	Atr_FullScanButton:SetHeight(22)
-	Atr_FullScanButton:SetPoint("LEFT", Atr_Adv_Search_Button, "RIGHT", 3, 0)
-	Atr_FullScanButton:SetPoint("RIGHT", Auctionator1Button, "LEFT", -3, 0)
+	Atr_FullScanButton:SetSize(100, 25)
+	Atr_FullScanButton:ClearAllPoints()
+	Atr_FullScanButton:SetPoint("TOPRIGHT", Auctionator1Button, "BOTTOMRIGHT", 0, -20)
 
 	Atr_CreateAuctionButton:SetWidth(165)
 	Atr_CreateAuctionButton:ClearAllPoints()
 	Atr_CreateAuctionButton:SetPoint("CENTER", 14, -20)
 
 	AuctionatorCloseButton:ClearAllPoints()
-	AuctionatorCloseButton:SetPoint("BOTTOMLEFT", Atr_Main_Panel, "BOTTOMRIGHT", -14, 10)
+	AuctionatorCloseButton:SetPoint("BOTTOMRIGHT", Atr_Main_Panel, "BOTTOMRIGHT", -8, 10)
 	Atr_Buy1_Button:SetPoint("RIGHT", AuctionatorCloseButton, "LEFT", -4, 0)
 	Atr_CancelSelectionButton:SetPoint("RIGHT", Atr_Buy1_Button, "LEFT", -4, 0)
 

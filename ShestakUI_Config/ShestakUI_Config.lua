@@ -31,7 +31,7 @@ local ALLOWED_GROUPS = {
 	["toppanel"] = 24,
 	["error"] = 25,
 	["stats"] = 26,
-	["zzz"] = 26,
+	["zzz"] = 27,
 }
 
 local function Local(o)
@@ -473,6 +473,7 @@ local function Local(o)
 	if o == "UIConfigzzzModel_rotate" then o = "3D模型旋转" end
 	if o == "UIConfigzzzChat_ScrollDown" then o = "聊天內容自動滾動到底部" end
 	if o == "UIConfigzzzChat_HideLanguage" then o = "移动/隐藏聊天输入框语言按鈕" end
+	if o == "UIConfigzzzChat_BigFoot" then o = "自动加入大脚世界频道" end
 	if o == "UIConfigzzzCombatAlert" then o = "进入/离开战斗提示" end
 	if o == "UIConfigzzzMapBoss3D" then o = "副本地图 Boss 3D模型" end
 	if o == "UIConfigzzzWorldMap" then o = "地圖上標記隊友名稱縮寫並顯示是否戰鬥或死亡" end
@@ -482,6 +483,7 @@ local function Local(o)
 	if o == "UIConfigzzzThreat" then o = "威胁值" end
 	if o == "UIConfigzzzCurrency" then o = "常用货币显示" end
 	if o == "UIConfigzzzObjectiveTracker" then o = "任务追踪增强" end
+	if o == "UIConfigzzzQuickTalents" then o = "快速天赋切换" end
 	if o == "UIConfigzzzFocuser" then o = "焦点" end
 	if o == "UIConfigzzzSuddenDeath" then o = "斩杀提示" end
 	if o == "UIConfigzzzSnowfallCursor" then o = "鼠标位置闪光" end

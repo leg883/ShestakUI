@@ -175,7 +175,6 @@ local function ScanUnit(unit, forced)
 
 		cachedGear = GearDB[currentGUID]
 
-		-- cachedGear? ok...skip get gear
 		if cachedGear and not forced then
 			SetUnitInfo(cachedGear)
 		end
@@ -205,7 +204,7 @@ local function ScanUnit(unit, forced)
 	end
 end
 
---- Character Info Sheet
+--[[- Character Info Sheet
 hooksecurefunc("PaperDollFrame_SetItemLevel", function(self, unit)
 	if unit ~= "player" then return end
 
@@ -223,10 +222,9 @@ hooksecurefunc("PaperDollFrame_SetItemLevel", function(self, unit)
 
 	self.tooltip = detailColor..STAT_AVERAGE_ITEM_LEVEL.." "..ilvl
 end)
-
+]]
 --- Handle Events
 f:SetScript("OnEvent", function(self, event, ...)
-	wipe(GearDB)
 	if event == "UNIT_INVENTORY_CHANGED" then
 		local unit = ...
 		if UnitGUID(unit) == currentGUID then

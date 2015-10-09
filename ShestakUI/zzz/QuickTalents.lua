@@ -12,7 +12,7 @@ QuickTalents:SetScript("OnEvent",function(self)
 		ShowTooltips = {true,"Toggle mouseover tooltips on talents."},
 		BackgroundAlpha = {0.5, "Set background opacity."},
 		Collapsed = {false},
-		CollapseInCombat = {false,"Automatically hide buttons while in combat."},
+		CollapseInCombat = {true,"Automatically hide buttons while in combat."},
 		--UnfocusedAlpha = {1,"Set frame opacity when not in use."},
 		--FixMacroSpells = {false,"Enable/Disable  in macros"},
 		BarBottom = {true,"Show reagent bar on the bottom & collapse downwards."},

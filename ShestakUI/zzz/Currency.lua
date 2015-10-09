@@ -4,7 +4,7 @@ if C.zzz.Currency ~= true then return end
 ----------------------------------------------------------------------------------------
 --	config
 ----------------------------------------------------------------------------------------
-local Currency = {
+local list = {
 	--[[
 	-- Old
 	241,	-- Champion's Seal
@@ -43,19 +43,19 @@ local Currency = {
 	]]
 
 	-- WoD
-	821,	-- Draenor Clans Archaeology Fragment
-	828,	-- Ogre Archaeology Fragment
-	829,	-- Arakkoa Archaeology Fragment
+	--821,	-- Draenor Clans Archaeology Fragment
+	--828,	-- Ogre Archaeology Fragment
+	--829,	-- Arakkoa Archaeology Fragment
 	824,	-- Garrison Resources
 	823,	-- Apexis Crystal (for gear, like the valors)
 	994,	-- Seal of Tempered Fate (Raid loot roll)
-	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
-	944,	-- Artifact Fragment (PvP)
+	--980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	--944,	-- Artifact Fragment (PvP)
 	1101,	-- Oil
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
 } 
-local BarBottom = true		--标题在下
+local BarTop = true		--标题在上
 local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 
 ----------------------------------------------------------------------------------------
@@ -63,10 +63,10 @@ local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 ----------------------------------------------------------------------------------------
 local function UpdateCurrency(self, event)
 	self.icon = {}
-	for i = 1, #Currency do 
-		local _, amount, _, _, _, totalMax = GetCurrencyInfo(Currency[i]) 
+	for i = 1, #list do 
+		local _, amount, _, _, _, totalMax = GetCurrencyInfo(list[i]) 
 		local icon = CreateFrame("Frame", nil, self) 
-		icon:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 40*i+3*(i+1))
+		icon:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, (40*i+3*(i+1))-40)
 		icon:SetSize(16, 16)
 		icon:CreateBackdrop("Default")
 		
@@ -84,7 +84,7 @@ local function UpdateCurrency(self, event)
 		end
 		icon.Status:SetValue(amount)
 		icon.Status:SetStatusBarColor(color.r, color.g, color.b)
-		icon.Status:SetSize(100, 3)
+		icon.Status:SetSize(100, 2)
 		icon.Status:ClearAllPoints()
 		icon.Status:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -7)
 		
@@ -104,8 +104,8 @@ local function UpdateCurrency(self, event)
 	end 
 
 	local GetCurrencyInfo = GetCurrencyInfo
-	for i = 1, #Currency do 
-		local label, _, icon = GetCurrencyInfo(Currency[i]) 
+	for i = 1, #list do 
+		local label, _, icon = GetCurrencyInfo(list[i]) 
 		self.icon[i].texture:SetTexture(icon) 
 		self.icon[i]:SetScript("OnEnter", function() 
 			_G["GameTooltip"]:ClearLines() 
@@ -118,14 +118,14 @@ local function UpdateCurrency(self, event)
 		end) 
 	end 
 
-	for i = 1, #Currency do 
-		local _, amount, _, _, _, totalMax = GetCurrencyInfo(Currency[i])
+	for i = 1, #list do 
+		local _, amount, _, _, _, totalMax = GetCurrencyInfo(list[i])
 		if totalMax == 0 then
 			self.icon[i].text:SetText(format('%s', amount))
 		else
 			self.icon[i].text:SetText(format('%s / %s', amount, totalMax))
 		end
-	end 
+	end
 end
 
 ----------------------------------------------------------------------------------------
@@ -142,7 +142,6 @@ title:SetScript("OnEvent",function(self, event)
 	self:RegisterForDrag("LEFTBUTTON")
 	self:SetScript("OnDragStart", self.StartMoving)
 	self:SetScript("OnDragStop", self.StopMovingOrSizing)
-	--self:CreateBackdrop()
 
 	self.text = self:CreateFontString(nil, "ARTWORK")
 	self.text:SetFont("Fonts\\ARIALN.TTF", 12, "OUTLINE")
@@ -150,34 +149,34 @@ title:SetScript("OnEvent",function(self, event)
 	self.text:SetText("常用货币")
 	self.text:SetTextColor(color.r, color.g, color.b)
 
-	local f = CreateFrame("Frame", "Currency_frame", title)
-	f:Hide()
-	if BarBottom then
-		f:SetPoint("BOTTOMLEFT", title, "TOPLEFT", 0, 10)
+	local Currency = CreateFrame("Frame", "Currency_frame", title)
+	Currency:Hide()
+	if BarTop then
+		Currency:SetPoint("BOTTOMLEFT", title, "BOTTOMLEFT", 0, 20)
 	else
-		f:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, 0)
+		Currency:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -20)
 	end
-	f:SetSize(100, 300)
-	--f:CreateBackdrop()
+	Currency:SetSize(100, (#list-1)*45)
 
-	f:RegisterEvent('PLAYER_ENTERING_WORLD')
-	f:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
-	f:RegisterEvent('PLAYER_HONOR_GAIN')
-	f:SetScript("OnEvent", UpdateCurrency)
-	--f:SetScript("OnUpdate", UpdateCurrency)
+	Currency:RegisterEvent('PLAYER_ENTERING_WORLD')
+	Currency:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
+	Currency:RegisterEvent('PLAYER_HONOR_GAIN')
+	Currency:SetScript("OnEvent", UpdateCurrency)
+	--Currency:SetScript("OnUpdate", UpdateCurrency)
 
 	-- Collapse stuff
-	self:SetScript("OnMouseDown", function(self) 
-		if f:IsShown() then
-			f:Hide()
+	self:SetScript("OnMouseDown", function()
+		if Currency:IsShown() then
+			Currency:Hide()
 		else
-			f:Show()
+			Currency:Show()
 		end
 	end)
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent('PLAYER_REGEN_ENABLED')
 	self:SetScript("OnEvent", function(self, event)
 		if event == "PLAYER_REGEN_DISABLED" then
-			f:Hide()
+			Currency:Hide()
 		end
 	end)
 end)

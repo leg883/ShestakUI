@@ -58,8 +58,7 @@ if C.zzz.Chat_ScrollDown == true then
 	local _G = getfenv(0)
 	local funcs = {"ScrollUp", "ScrollDown", "ScrollToTop", "PageUp", "PageDown"}
 
-	local channels = {GetChannelList()}
-	for i = 1, #channels do
+	for i = 1, NUM_CHAT_WINDOWS do
 		local name = "ChatFrame" .. i
 		local frame = _G[name]
 		scrolldowns[name] = frame.ScrollDown
@@ -84,8 +83,7 @@ if C.zzz.Chat_HideLanguage == true then
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD") 
 	f:SetScript("OnEvent", function(self, event, ...)
-		local channels = {GetChannelList()}
-		for i = 1, 10 do --#channels do
+		for i = 1, NUM_CHAT_WINDOWS do
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:ClearAllPoints()
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetPoint("right",ChatFrame1EditBox,"LEFT",17,0)
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetAlpha(0) 
@@ -108,5 +106,15 @@ function SlashCmdList.BN(msg, editbox)
 end
 
 ---------------------------------------------------------------
--- 輸入/bn直接發送通告
+-- 加入大脚世界频道
 ---------------------------------------------------------------
+if C.zzz.Chat_BigFoot == true then
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_LOGIN")
+	f:SetScript("OnEvent",function(self, event)
+		f:UnregisterEvent("PLAYER_LOGIN")
+		
+		JoinPermanentChannel("大脚世界频道", nil, 1)
+		ChatFrame_AddChannel(ChatFrame1, "大脚世界频道")
+	end)
+end
