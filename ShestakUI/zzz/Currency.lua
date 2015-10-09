@@ -55,7 +55,7 @@ local list = {
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
 } 
-local BarTop = true		--标题在上
+local BarBottom = true		--标题在上
 local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 
 ----------------------------------------------------------------------------------------

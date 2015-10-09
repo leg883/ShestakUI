@@ -41,10 +41,10 @@ local function Shared(self, unit)
 	self:SetFrameStrata("BACKGROUND")
 
 	-- ClassBarAnchor
-		local classbaranchor = CreateFrame("Frame", "ClassBarAnchor", self)
-		classbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.unitframes.class_bar))
-		classbaranchor:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
-		classbaranchor:SetFrameStrata("LOW")
+	local classbaranchor = CreateFrame("Frame", "ClassBarAnchor", self)
+	classbaranchor:CreatePanel("Invisible", 1, 1, unpack(C.position.unitframes.class_bar))
+	classbaranchor:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
+	classbaranchor:SetFrameStrata("LOW")
 	
 	-- Health bar
 	self.Health = CreateFrame("StatusBar", self:GetName().."_Health", self)
@@ -188,43 +188,6 @@ local function Shared(self, unit)
 		self.Power.value:SetJustifyH("LEFT")
 	end
 
-	--[[if unit == "player" then
-		
-		--Ext_PowerBar
-		self.Power_ext = CreateFrame("StatusBar", self:GetName().."_Power_ext", classbaranchor)
-		self.Power_ext:SetSize(217, 7+3)
-		self.Power_ext:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
-		self.Power_ext:SetStatusBarTexture(C.media.texture)
-		self.Power_ext:CreateBackdrop("Default", "Shadow")
-		
-		self.Power_ext.frequentUpdates = true
-		self.Power_ext.colorDisconnected = true
-		self.Power_ext.colorTapping = true
-		if C.unitframe.own_color == true then
-			self.Power_ext.colorClass = true
-		else
-			self.Power_ext.colorPower = true
-		end
-		if C.unitframe.plugins_smooth_bar == true then
-			self.Power_ext.Smooth = true
-		end
-		self.Power_ext.PreUpdate = T.PreUpdatePower
-		self.Power_ext.PostUpdate = T.PostUpdatePower
-		
-		self.Power_ext.bg = self.Power_ext:CreateTexture(nil, "BORDER")
-		self.Power_ext.bg:SetAllPoints()
-		self.Power_ext.bg:SetTexture(C.media.texture)
-		if C.unitframe.own_color == true then
-			self.Power_ext.bg:SetVertexColor(C.unitframe.uf_color[1], C.unitframe.uf_color[2], C.unitframe.uf_color[3], 0.2)
-		else
-			self.Power_ext.bg.multiplier = 0.2
-		end
-		self.Power_ext.value = T.SetFontString(self.Power_ext, C.font.unit_frames_font, C.font.unit_frames_font_size-1, C.font.unit_frames_font_style)
-		self.Power_ext.value:SetPoint("CENTER", self.Power_ext, "CENTER", 0, 0)
-		self.Power_ext.value:SetJustifyH("CENTER")
-	end]]
-	
-	
 	-- Names
 	if unit ~= "player" then
 		self.Info = T.SetFontString(self.Health, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
@@ -681,13 +644,7 @@ local function Shared(self, unit)
 		if C.unitframe_class_bar.vengeance == true then
 			self.VengeanceBar = CreateFrame("Frame", self:GetName().."_VengeanceBar", classbaranchor)
 			self.VengeanceBar:CreateBackdrop("Default")
-			--if (T.class == "PALADIN" and C.unitframe_class_bar.holy == true)
-			--or (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune == true)
-			--or (T.class == "MONK" and C.unitframe_class_bar.chi == true) then
-				self.VengeanceBar:SetPoint("BOTTOM", classbaranchor, "TOP", 0, 7)
-			--else
-				--self.VengeanceBar:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 7)
-			--end
+			self.VengeanceBar:SetPoint("BOTTOM", classbaranchor, "TOP", 0, 7)
 			self.VengeanceBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 
 			self.VengeanceBar.Bar = CreateFrame("StatusBar", self:GetName().."_VengeanceBar.Bar", self.VengeanceBar)
@@ -885,19 +842,7 @@ local function Shared(self, unit)
 			self.Debuffs.initialAnchor = "BOTTOMRIGHT"
 			self.Debuffs["growth-y"] = "UP"
 			self.Debuffs["growth-x"] = "LEFT"
-			--[[if (T.class == "DEATHKNIGHT" and C.unitframe_class_bar.rune == true)
-			or (T.class == "SHAMAN" and C.unitframe_class_bar.totem == true)
-			or (T.class == "DRUID" and C.unitframe_class_bar.eclipse == true)
-			or (T.class == "DRUID" and form == true)
-			or (T.class == "PALADIN" and C.unitframe_class_bar.holy == true)
-			or (T.class == "WARLOCK" and C.unitframe_class_bar.shard == true)
-			or (T.class == "ROGUE" and C.unitframe_class_bar.combo == true)
-			or (T.class == "MONK" and C.unitframe_class_bar.chi == true) then]]
-				self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
-			--else
-				--self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 5)
-			--end
-
+			self.Debuffs:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 2, 19)
 			self.Debuffs.PostCreateIcon = T.PostCreateAura
 			self.Debuffs.PostUpdateIcon = T.PostUpdateIcon
 		end
@@ -988,8 +933,8 @@ local function Shared(self, unit)
 
 			self:SetScript("OnEnter", function(self) FlashInfo.ManaLevel:Hide() self.Status:Show() UnitFrame_OnEnter(self) end)
 			self:SetScript("OnLeave", function(self) FlashInfo.ManaLevel:Show() self.Status:Hide() UnitFrame_OnLeave(self) end)
-			--增加PvP icon
-			self.PvP = self.Health:CreateTexture(nil, "OVERLAY")
+
+			self.PvP = self.Health:CreateTexture(nil, "OVERLAY")	--增加PvP icon
 			self.PvP:SetSize(20, 20)
 			self.PvP:SetPoint("CENTER", self.Health, "CENTER", 0, 5)
 			self.PvP.Override = function(frame, event, unit)
@@ -1011,7 +956,6 @@ local function Shared(self, unit)
 					end
 				end
 			end
-			----
 		end
 	end
 
@@ -1215,8 +1159,8 @@ local function Shared(self, unit)
 			self.Castbar:SetHeight(5)
 		end
 	end
-----------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------
 	-- Swing bar
 	if C.unitframe.plugins_swing == true and unit == "player" then
 		self.Swing = CreateFrame("StatusBar", self:GetName().."_Swing", self)
@@ -1452,8 +1396,6 @@ local function Shared(self, unit)
 
 	T.HideAuraFrame(self)
 	return self
-	
-
 end
 
 ----------------------------------------------------------------------------------------
