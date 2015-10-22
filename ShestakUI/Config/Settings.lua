@@ -579,8 +579,10 @@ C["zzz"] = {
 	["Misc_VignetteAlert"] = true,
 	["Misc_autopet"] = false,
 	["Misc_FlashTaskBar"] = true,
+	["Misc_AutoSell"] = false,
 	["ItemType"] = false,
 	["Loot"] = true,
 	["AFK"] = true,
+	["RealLinks"] = true,
 	
 }

@@ -23,7 +23,10 @@
 	<Script file="QuickTalents.lua"/>
 	<Script file="Misc.lua"/>
 	<Script file="AFK.lua"/>
+	<Script file="RealLinks.lua"/>
 	<Script file="Threat\Threat.lua"/>
+
+	<Script file="Test.lua"/>
 
 
 </Ui>

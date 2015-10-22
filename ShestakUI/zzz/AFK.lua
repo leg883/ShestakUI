@@ -173,6 +173,15 @@ local function ColorGradient(perc, ...)-- http://www.wowwiki.com/ColorGradient
     return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
 end
 
+local function UpdatePlayer(f)
+	f:SetCamera(1)
+	f:SetUnit("player")
+	f:SetAnimation(69)
+	f:SetScript("OnUpdate", function(self, elapsed)
+		self:SetFacing(self:GetFacing() + math.pi * elapsed / 5)
+	end)
+end
+
 local function UpdatePet(f)
 	local creatureID
 	f.t = 0
@@ -438,12 +447,7 @@ local function fadeout()
 	SetRandomTip()
 	tip:Show()
 	
-	PlayerModel:SetCamera(1)
-	PlayerModel:SetUnit("player")
-	PlayerModel:SetAnimation(69)
-	PlayerModel:SetScript("OnUpdate", function(self, elapsed)
-		self:SetFacing(self:GetFacing() + math.pi * elapsed / 5)
-	end)
+	UpdatePlayer(PlayerModel)
 	UpdatePet(petmodel)
 	
 	AFK.t = 0

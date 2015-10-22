@@ -491,9 +491,11 @@ local function Local(o)
 	if o == "UIConfigzzzMisc_VignetteAlert" then o = "稀有提示" end
 	if o == "UIConfigzzzMisc_autopet" then o = "自动召唤宠物" end
 	if o == "UIConfigzzzMisc_FlashTaskBar" then o = "任务栏闪光" end
+	if o == "UIConfigzzzMisc_AutoSell" then o = "自动出售指定物品" end
 	if o == "UIConfigzzzItemType" then o = "鼠标提示物品分类" end
 	if o == "UIConfigzzzLoot" then o = "拾取自动确认" end
 	if o == "UIConfigzzzAFK" then o = "AFK界面" end
+	if o == "UIConfigzzzRealLinks" then o = "染色Battle.net消息" end
 
 	T.option = o
 end

@@ -26,7 +26,7 @@ local function CreateButton(btn, text)
 	btn.f:SetHeight(tsize)
 	btn.f:SetText(text) -- 显示的文字
 	btn.f:SetPoint("CENTER")
-	btn.f:SetTextColor(unpack(T.color)) -- 颜色
+	btn.f:SetTextColor(T.color.r, T.color.g, T.color.b) -- 颜色
 end
 
 ----------------------------------------------------------------------------------------------------

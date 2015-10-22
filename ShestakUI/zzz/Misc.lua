@@ -105,3 +105,41 @@ if C.zzz.Misc_FlashTaskBar == true then
 		end
 	end
 end
+
+-------------------------------------------------------------------------------
+-- 自动出售指定物品
+-------------------------------------------------------------------------------
+if C.zzz.Misc_AutoSell == true then
+	local sell = {
+		"亚麻布",
+	}
+
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("MERCHANT_SHOW")
+	f:SetScript("OnEvent", function()
+		local c = 0
+		
+		for i = 1, #sell do
+			for b = 0, 4 do
+				for s = 1, GetContainerNumSlots(b) do
+					local l = GetContainerItemLink(b, s)
+					if l then
+						local p = select(11, GetItemInfo(l))*select(2, GetContainerItemInfo(b, s))
+						local n = select(1, GetItemInfo(l))
+						
+						if sell[i] == n and p > 0 then
+							UseContainerItem(b, s)
+							PickupMerchantItem()
+							c = c + p
+						end
+					end
+				end
+			end
+		end
+
+		if c > 0 then
+			local g, s, c = math.floor(c/10000) or 0, math.floor((c%10000)/100) or 0, c%100
+			DEFAULT_CHAT_FRAME:AddMessage("物品已出售,收入： ".." |cffffffff"..g.."|cffffc125g|r".." |cffffffff"..s.."|cffc7c7cfs|r".." |cffffffff"..c.."|cffeda55fc|r"..".",255,255,255)
+		end
+	end)
+end

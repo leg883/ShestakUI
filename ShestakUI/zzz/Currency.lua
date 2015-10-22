@@ -55,7 +55,7 @@ local list = {
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
 } 
-local BarBottom = true		--标题在上
+local BarBottom = true		--标题在下
 local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 
 ----------------------------------------------------------------------------------------
@@ -151,7 +151,7 @@ title:SetScript("OnEvent",function(self, event)
 
 	local Currency = CreateFrame("Frame", "Currency_frame", title)
 	Currency:Hide()
-	if BarTop then
+	if BarBottom then
 		Currency:SetPoint("BOTTOMLEFT", title, "BOTTOMLEFT", 0, 20)
 	else
 		Currency:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -20)

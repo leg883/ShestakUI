@@ -1,61 +1,361 @@
 local T, C, L, _ = unpack(select(2, ...))
 
-local defaultFadeIn   = {time = 0.4, alpha = 1}
-local defaultFadeOut  = {time = 0.4, alpha = 0}
-local defaultEventFadeOut  = {time = 1.5, alpha = 0}
+------------------------------------------------------------------------
+-- [[ Animation Functions ]]
+-- T:Anim_Shake							-- 震动
+-- T:Anim_StopShake						-- 停止震动
+-- T:Anim_ShakeHorizontal				-- 横向震动
+-- T:Anim_StopShakeHorizontal			-- 停止横向震动
+-- T:Anim_Flash							-- 闪现
+-- T:Anim_StopFlash						-- 停止闪现
+-- T:Anim_SlideIn						-- 滑入
+-- T:Anim_SlideOut						-- 滑出
+-- T:UIFrameFadeIn
+-- T:UIFrameFadeOut
+-- T:Fade								-- 自动淡入淡出
+-- T:FadeTo								-- 指定淡入/淡出
+-- T:Move								-- 自动移动
+-- T:MoveTo								-- 指定移动方向
+------------------------------------------------------------------------
+local random = math.random
 
-local frameFadeManager = CreateFrame("frame")
+function T:SetUpAnimGroup(object, type, ...)
+	if not type then type = 'Flash' end
+
+	if type == 'Flash' then
+		object.anim = object:CreateAnimationGroup("Flash")
+		object.anim.fadein = object.anim:CreateAnimation("ALPHA", "FadeIn")
+		object.anim.fadein:SetChange(1)
+		object.anim.fadein:SetOrder(2)
+
+		object.anim.fadeout = object.anim:CreateAnimation("ALPHA", "FadeOut")
+		object.anim.fadeout:SetChange(-1)
+		object.anim.fadeout:SetOrder(1)
+	elseif type == 'FlashLoop' then
+		object.anim = object:CreateAnimationGroup("Flash")
+		object.anim.fadein = object.anim:CreateAnimation("ALPHA", "FadeIn")
+		object.anim.fadein:SetChange(1)
+		object.anim.fadein:SetOrder(2)
+
+		object.anim.fadeout = object.anim:CreateAnimation("ALPHA", "FadeOut")
+		object.anim.fadeout:SetChange(-1)
+		object.anim.fadeout:SetOrder(1)
+
+		object.anim:SetScript("OnFinished", function(self, requested)
+			if(not requested) then
+				object.anim:Play()
+			end
+		end)
+	elseif type == 'Shake' then
+		object.shake = object:CreateAnimationGroup("Shake")
+		object.shake:SetLooping("REPEAT")
+		object.shake.path = object.shake:CreateAnimation("Path")
+		object.shake.path[1] = object.shake.path:CreateControlPoint()
+		object.shake.path[2] = object.shake.path:CreateControlPoint()
+		object.shake.path[3] = object.shake.path:CreateControlPoint()
+		object.shake.path[4] = object.shake.path:CreateControlPoint()
+		object.shake.path[5] = object.shake.path:CreateControlPoint()
+		object.shake.path[6] = object.shake.path:CreateControlPoint()
+
+		object.shake.path:SetDuration(0.7)
+		object.shake.path[1]:SetOffset(random(-9, 7), random(-7, 12))
+		object.shake.path[1]:SetOrder(1)
+		object.shake.path[2]:SetOffset(random(-5, 9), random(-9, 5))
+		object.shake.path[2]:SetOrder(2)
+		object.shake.path[3]:SetOffset(random(-5, 7), random(-7, 5))
+		object.shake.path[3]:SetOrder(3)
+		object.shake.path[4]:SetOffset(random(-9, 9), random(-9, 9))
+		object.shake.path[4]:SetOrder(4)
+		object.shake.path[5]:SetOffset(random(-5, 7), random(-7, 5))
+		object.shake.path[5]:SetOrder(5)
+		object.shake.path[6]:SetOffset(random(-9, 7), random(-9, 5))
+		object.shake.path[6]:SetOrder(6)
+	elseif type == 'Shake_Horizontal' then
+		object.shakeh = object:CreateAnimationGroup("ShakeH")
+		object.shakeh:SetLooping("REPEAT")
+		object.shakeh.path = object.shakeh:CreateAnimation("Path")
+		object.shakeh.path[1] = object.shakeh.path:CreateControlPoint()
+		object.shakeh.path[2] = object.shakeh.path:CreateControlPoint()
+		object.shakeh.path[3] = object.shakeh.path:CreateControlPoint()
+		object.shakeh.path[4] = object.shakeh.path:CreateControlPoint()
+		object.shakeh.path[5] = object.shakeh.path:CreateControlPoint()
+		object.shakeh.path[6] = object.shakeh.path:CreateControlPoint()
+
+		object.shakeh.path:SetDuration(2)
+		object.shakeh.path[1]:SetOffset(-5, 0)
+		object.shakeh.path[1]:SetOrder(1)
+		object.shakeh.path[2]:SetOffset(5, 0)
+		object.shakeh.path[2]:SetOrder(2)
+		object.shakeh.path[3]:SetOffset(-2, 0)
+		object.shakeh.path[3]:SetOrder(3)
+		object.shakeh.path[4]:SetOffset(5, 0)
+		object.shakeh.path[4]:SetOrder(4)
+		object.shakeh.path[5]:SetOffset(-2, 0)
+		object.shakeh.path[5]:SetOrder(5)
+		object.shakeh.path[6]:SetOffset(5, 0)
+		object.shakeh.path[6]:SetOrder(6)
+	elseif type == 'Shake_Vertical' then
+		object.shakev = object:CreateAnimationGroup("ShakeV")
+		object.shakev:SetLooping("REPEAT")
+		object.shakev.path = object.shakev:CreateAnimation("Path")
+		object.shakev.path[1] = object.shakev.path:CreateControlPoint()
+		object.shakev.path[2] = object.shakev.path:CreateControlPoint()
+		--object.shakev.path[3] = object.shakev.path:CreateControlPoint()
+		--object.shakev.path[4] = object.shakev.path:CreateControlPoint()
+		--object.shakev.path[5] = object.shakev.path:CreateControlPoint()
+		--object.shakev.path[6] = object.shakev.path:CreateControlPoint()
+
+		object.shakev.path:SetDuration(1)
+		object.shakev.path[1]:SetOffset(0, 20)
+		object.shakev.path[1]:SetOrder(1)
+		object.shakev.path[2]:SetOffset(0, 0)
+		object.shakev.path[2]:SetOrder(2)
+		--object.shakev.path[3]:SetOffset(0, 6)
+		--object.shakev.path[3]:SetOrder(3)
+		--object.shakev.path[4]:SetOffset(0, -6)
+		--object.shakev.path[4]:SetOrder(4)
+		--object.shakev.path[5]:SetOffset(0, 6)
+		--object.shakev.path[5]:SetOrder(5)
+		--object.shakev.path[6]:SetOffset(0, -6)
+		--object.shakev.path[6]:SetOrder(6)
+	else
+		local x, y, duration, customName = ...
+		if not customName then
+			customName = 'anim'
+		end
+		object[customName] = object:CreateAnimationGroup("Move_In")
+		object[customName].in1 = object[customName]:CreateAnimation("Translation")
+		object[customName].in1:SetDuration(0)
+		object[customName].in1:SetOrder(1)
+		object[customName].in2 = object[customName]:CreateAnimation("Translation")
+		object[customName].in2:SetDuration(duration)
+		object[customName].in2:SetOrder(2)
+		object[customName].in2:SetSmoothing("OUT")
+		object[customName].out1 = object:CreateAnimationGroup("Move_Out")
+		object[customName].out2 = object[customName].out1:CreateAnimation("Translation")
+		object[customName].out2:SetDuration(duration)
+		object[customName].out2:SetOrder(1)
+		object[customName].out2:SetSmoothing("IN")
+		object[customName].in1:SetOffset(T.Scale(x), T.Scale(y))
+		object[customName].in2:SetOffset(T.Scale(-x), T.Scale(-y))
+		object[customName].out2:SetOffset(T.Scale(x), T.Scale(y))
+		object[customName].out1:SetScript("OnFinished", function() object:Hide() end)
+	end
+end
+
+function T:Anim_Shake(object)
+	if not object.shake then
+		T:SetUpAnimGroup(object, 'Shake')
+	end
+
+	object.shake:Play()
+end
+
+function T:Anim_StopShake(object)
+	if object.shake then
+		object.shake:Finish()
+	end
+end
+
+function T:Anim_ShakeHorizontal(object)
+	if not object.shakeh then
+		T:SetUpAnimGroup(object, 'Shake_Horizontal')
+	end
+
+	object.shakeh:Play()
+end
+
+function T:Anim_StopShakeHorizontal(object)
+	if object.shakeh then
+		object.shakeh:Finish()
+	end
+end
+
+function T:Anim_ShakeVertical(object)
+	if not object.shakev then
+		T:SetUpAnimGroup(object, 'Shake_Vertical')
+	end
+
+	object.shakev:Play()
+end
+
+function T:Anim_StopShakeVertical(object)
+	if object.shakev then
+		object.shakev:Finish()
+	end
+end
+
+function T:Anim_Flash(object, duration, loop)
+	if not object.anim then
+		T:SetUpAnimGroup(object, loop and "FlashLoop" or 'Flash')
+	end
+
+	if not object.anim.playing then
+		object.anim.fadein:SetDuration(duration)
+		object.anim.fadeout:SetDuration(duration)
+		object.anim:Play()
+		object.anim.playing = true
+	end
+end
+
+function T:Anim_StopFlash(object)
+	if object.anim and object.anim.playing then
+		object.anim:Stop()
+		object.anim.playing = nil;
+	end
+end
+
+function T:Anim_SlideIn(object, customName)
+	if not customName then
+		customName = 'anim'
+	end
+	if not object[customName] then return end
+
+	object[customName].out1:Stop()
+	object:Show()
+	object[customName]:Play()
+end
+
+function T:Anim_SlideOut(object, customName)
+	if not customName then
+		customName = 'anim'
+	end
+	if not object[customName] then return end
+
+	object[customName]:Finish()
+	object[customName]:Stop()
+	object[customName].out1:Play()
+end
+
+local frameFadeManager = CreateFrame("FRAME");
+local FADEFRAMES = {};
+
+function T:UIFrameFade_OnUpdate(elapsed)
+	local index = 1;
+	local frame, fadeInfo;
+	while FADEFRAMES[index] do
+		frame = FADEFRAMES[index];
+		fadeInfo = FADEFRAMES[index].fadeInfo;
+		-- Reset the timer if there isn't one, this is just an internal counter
+		fadeInfo.fadeTimer = (fadeInfo.fadeTimer or 0) + elapsed;
+		fadeInfo.fadeTimer = fadeInfo.fadeTimer + elapsed;
+
+		-- If the fadeTimer is less then the desired fade time then set the alpha otherwise hold the fade state, call the finished function, or just finish the fade
+		if ( fadeInfo.fadeTimer < fadeInfo.timeToFade ) then
+			if ( fadeInfo.mode == "IN" ) then
+				frame:SetAlpha((fadeInfo.fadeTimer / fadeInfo.timeToFade) * (fadeInfo.endAlpha - fadeInfo.startAlpha) + fadeInfo.startAlpha);
+			elseif ( fadeInfo.mode == "OUT" ) then
+				frame:SetAlpha(((fadeInfo.timeToFade - fadeInfo.fadeTimer) / fadeInfo.timeToFade) * (fadeInfo.startAlpha - fadeInfo.endAlpha)  + fadeInfo.endAlpha);
+			end
+		else
+			frame:SetAlpha(fadeInfo.endAlpha);
+			-- If there is a fadeHoldTime then wait until its passed to continue on
+			if ( fadeInfo.fadeHoldTime and fadeInfo.fadeHoldTime > 0  ) then
+				fadeInfo.fadeHoldTime = fadeInfo.fadeHoldTime - elapsed;
+			else
+				-- Complete the fade and call the finished function if there is one
+				T:UIFrameFadeRemoveFrame(frame);
+				if ( fadeInfo.finishedFunc ) then
+					fadeInfo.finishedFunc(fadeInfo.finishedArg1, fadeInfo.finishedArg2, fadeInfo.finishedArg3, fadeInfo.finishedArg4);
+					fadeInfo.finishedFunc = nil;
+				end
+			end
+		end
+
+		index = index + 1;
+	end
+
+	if ( #FADEFRAMES == 0 ) then
+		frameFadeManager:SetScript("OnUpdate", nil);
+	end
+end
 
 -- Generic fade function
-local function UIFrameFade(frame, fadeInfo)
-	if not frame then return end
-	if not fadeInfo.mode then fadeInfo.mode = "IN" end
-	local alpha
-	if fadeInfo.mode == "IN" then
-		if not fadeInfo.startAlpha then fadeInfo.startAlpha = 0 end
-		if not fadeInfo.endAlpha then fadeInfo.endAlpha = 1 end
-		alpha = 0
-    elseif fadeInfo.mode == "OUT" then
-		if not fadeInfo.startAlpha then fadeInfo.startAlpha = 1.0 end
-		if not fadeInfo.endAlpha then fadeInfo.endAlpha = 0 end
-		alpha = 1.0
-    end
-    frame:SetAlpha(fadeInfo.startAlpha)
-    frame.fadeInfo = fadeInfo
+function T:UIFrameFade(frame, fadeInfo)
+	if (not frame) then
+		return;
+	end
+	if ( not fadeInfo.mode ) then
+		fadeInfo.mode = "IN";
+	end
+	local alpha;
+	if ( fadeInfo.mode == "IN" ) then
+		if ( not fadeInfo.startAlpha ) then
+			fadeInfo.startAlpha = 0;
+		end
+		if ( not fadeInfo.endAlpha ) then
+			fadeInfo.endAlpha = 1.0;
+		end
+		alpha = 0;
+	elseif ( fadeInfo.mode == "OUT" ) then
+		if ( not fadeInfo.startAlpha ) then
+			fadeInfo.startAlpha = 1.0;
+		end
+		if ( not fadeInfo.endAlpha ) then
+			fadeInfo.endAlpha = 0;
+		end
+		alpha = 1.0;
+	end
+	frame:SetAlpha(fadeInfo.startAlpha);
 
-	local index = 1
+	frame.fadeInfo = fadeInfo;
+	if not frame:IsProtected() then
+		frame:Show();
+	end
+
+	local index = 1;
 	while FADEFRAMES[index] do
-		if ( FADEFRAMES[index] == frame ) then return end -- If frame is already set to fade then return
-		index = index + 1
-    end
-    tinsert(FADEFRAMES, frame)
-    frameFadeManager:SetScript("OnUpdate", UIFrameFade_OnUpdate)
+		-- If frame is already set to fade then return
+		if ( FADEFRAMES[index] == frame ) then
+			return;
+		end
+		index = index + 1;
+	end
+	FADEFRAMES[#FADEFRAMES + 1] = frame
+	frameFadeManager:SetScript("OnUpdate", T.UIFrameFade_OnUpdate);
 end
 
 -- Convenience function to do a simple fade in
-local function UIFrameFadeIn(frame, timeToFade, startAlpha, endAlpha)
-	local fadeInfo = {}
-	fadeInfo.mode = "IN"
-	fadeInfo.timeToFade = timeToFade
-	fadeInfo.startAlpha = startAlpha
-	fadeInfo.endAlpha = endAlpha
-	UIFrameFade(frame, fadeInfo)
+function T:UIFrameFadeIn(frame, timeToFade, startAlpha, endAlpha)
+	local fadeInfo = {};
+	fadeInfo.mode = "IN";
+	fadeInfo.timeToFade = timeToFade;
+	fadeInfo.startAlpha = startAlpha;
+	fadeInfo.endAlpha = endAlpha;
+	T:UIFrameFade(frame, fadeInfo);
 end
-T.UIFrameFadeIn = UIFrameFadeIn
 
 -- Convenience function to do a simple fade out
-local function UIFrameFadeOut(frame, timeToFade, startAlpha, endAlpha)
-	local fadeInfo = {}
-	fadeInfo.mode = "OUT"
-	fadeInfo.timeToFade = timeToFade
-	fadeInfo.startAlpha = startAlpha
-	fadeInfo.endAlpha = endAlpha
-	UIFrameFade(frame, fadeInfo)
+function T:UIFrameFadeOut(frame, timeToFade, startAlpha, endAlpha)
+	local fadeInfo = {};
+	fadeInfo.mode = "OUT";
+	fadeInfo.timeToFade = timeToFade;
+	fadeInfo.startAlpha = startAlpha;
+	fadeInfo.endAlpha = endAlpha;
+	T:UIFrameFade(frame, fadeInfo);
 end
-T.UIFrameFadeOut = UIFrameFadeOut
 
+function T:tDeleteItem(table, item)
+	local index = 1;
+	while table[index] do
+		if ( item == table[index] ) then
+			tremove(table, index);
+			break
+		else
+			index = index + 1;
+		end
+	end
+end
+
+function T:UIFrameFadeRemoveFrame(frame)
+	T:tDeleteItem(FADEFRAMES, frame);
+end
+
+----------------------------------------------------------------------------------------------------
+-- Extra Fade function
+----------------------------------------------------------------------------------------------------
 T.isfade = {}
-local function Fade(frame, timeToFade)
+function T:Fade(frame, timeToFade)
 	if not frame:IsShown() then frame:Show() frame:SetAlpha(0) end
 	if frame:GetAlpha() == 0 then
 		T.isfade[frame] = true
@@ -85,7 +385,7 @@ local function Fade(frame, timeToFade)
 	end
 end
 
-local function FadeTo(frame, timeToFade, mode)
+function T:FadeTo(frame, timeToFade, mode)
 	local Step = 0
 	local Updater = CreateFrame("Frame")
 
@@ -102,142 +402,14 @@ local function FadeTo(frame, timeToFade, mode)
 		end
 	end)
 end
---==================================================================--
---              fade-in on enter/fade-out on leave                  --
---==================================================================--
 
-function T.ActionbarFader(frame, buttonList, fadeIn, fadeOut)
-	if not frame or not buttonList then return end
-	if not fadeIn then fadeIn = defaultFadeIn end
-	if not fadeOut then fadeOut = defaultFadeOut end
-	frame:EnableMouse(true)
-
-	frame:SetScript("OnEnter", function(self) if frame.eventmode ~= 1 then UIFrameFadeIn(frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha) end end)
-	frame:SetScript("OnLeave", function(self) if frame.eventmode ~= 1 then UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha) end end)
-
-	for _, button in pairs(buttonList) do
-		if button then
-			button:HookScript("OnEnter", function() if frame.eventmode ~= 1 then UIFrameFadeIn( frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha) end end)
-			button:HookScript("OnLeave", function() if frame.eventmode ~= 1 then UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha) end end)
-		end
-	end
-	
-	UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-end
-
-function T.FrameFader(frame,fadeIn,fadeOut)
-	if not frame then return end
-	if not fadeIn then fadeIn = defaultFadeIn end
-	if not fadeOut then fadeOut = defaultFadeOut end
-	frame:EnableMouse(true)
-
-	frame:SetScript("OnEnter", function(self) if frame.eventmode ~= 1 then UIFrameFadeIn(frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha) end end)
-	frame:SetScript("OnLeave", function(self) if frame.eventmode ~= 1 then UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha) end end)
-
-	UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-end
-
---the flyout is special, when hovering the flyout the parented bar must not fade out
-function T.SpellFlyoutFader(frame,buttonList,fadeIn,fadeOut)
-	if not frame or not buttonList then return end
-	if not fadeIn then fadeIn = defaultFadeIn end
-	if not fadeOut then fadeOut = defaultFadeOut end
-
-	SpellFlyout:SetScript("OnEnter", function() if frame.eventmode ~= 1 then UIFrameFadeIn(frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha) end end)
-	SpellFlyout:SetScript("OnLeave", function() if frame.eventmode ~= 1 then UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha) end end)
-
-	for _, button in pairs(buttonList) do
-		if button then
-			button:SetScript("OnEnter", function() if frame.eventmode ~= 1 then UIFrameFadeIn(frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha) end end)
-			button:SetScript("OnLeave", function() if frame.eventmode ~= 1 then UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha) end end)
-		end
-	end
-end
---==================================================================--
---              fade-in when center conditions meets                --
---==================================================================--
---[[   powerType - A number identifying the power type (number)   ]]--
---[[   0 - Mana 1 - Rage 2 - Focus 3 - Energy 6 - Runic Power     ]]--
-
-local function regi(frame)
-	frame:RegisterEvent('PLAYER_REGEN_DISABLED')
-	frame:RegisterEvent('PLAYER_REGEN_ENABLED')
-	frame:RegisterEvent('UNIT_TARGET')
-	frame:RegisterEvent('PLAYER_TARGET_CHANGED')
-	frame:RegisterEvent('UNIT_HEALTH')
-	frame:RegisterEvent('UNIT_HEALTHMAX')
-	frame:RegisterEvent('UNIT_POWER')
-	frame:RegisterEvent('UNIT_POWERMAX')
-	frame:RegisterEvent('UNIT_SPELLCAST_START')
-	frame:RegisterEvent('UNIT_SPELLCAST_FAILED')
-	frame:RegisterEvent('UNIT_SPELLCAST_STOP')
-	frame:RegisterEvent('UNIT_SPELLCAST_INTERRUPTED')
-	frame:RegisterEvent('UNIT_SPELLCAST_CHANNEL_START')
-	frame:RegisterEvent('UNIT_SPELLCAST_CHANNEL_INTERRUPTED')
-	frame:RegisterEvent('UNIT_SPELLCAST_CHANNEL_STOP')
-	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-end
-
-function T.ActionbarEventFader(frame,buttonList,fadeIn,fadeOut)
-	if not frame or not buttonList then return end
-    if not fadeIn then fadeIn = defaultFadeIn end
-    if not fadeOut then fadeOut = defaultEventFadeOut end
-	
-	regi(frame)
-	
-	frame:SetScript("OnEvent", function(self,event)
-		if
-			UnitCastingInfo('player') or UnitChannelInfo('player') or
-			UnitAffectingCombat('player') or
-			UnitExists('target') or
-			UnitHealth('player') < UnitHealthMax('player') or
-			((UnitPowerType("player") == 1 or UnitPowerType("player") == 6) and UnitPower("player") > 0) or
-			((UnitPowerType("player") ~= 1 and UnitPowerType("player") ~= 6) and UnitPower("player") < UnitPowerMax("player"))
-		then
-			frame.eventmode = 1
-			UIFrameFadeIn( frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha)
-		else
-			frame.eventmode = 0
-			UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-		end
-	end)
-	
-    UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-end
-
-function T.FrameEventFader(frame,fadeIn,fadeOut)
-	if not frame then return end
-    if not fadeIn then fadeIn = defaultFadeIn end
-    if not fadeOut then fadeOut = defaultEventFadeOut end
-	
-	regi(frame)
-	
-	frame:SetScript("OnEvent", function(self,event)
-		if
-			UnitCastingInfo('player') or UnitChannelInfo('player') or
-			UnitAffectingCombat('player') or
-			UnitExists('target') or
-			UnitHealth('player') < UnitHealthMax('player') or
-			((UnitPowerType("player") == 1 or UnitPowerType("player") == 6) and UnitPower("player") > 0) or
-			((UnitPowerType("player") ~= 1 and UnitPowerType("player") ~= 6) and UnitPower("player") < UnitPowerMax("player"))
-		then
-			frame.eventmode = 1
-			UIFrameFadeIn( frame, fadeIn.time, frame:GetAlpha(), fadeIn.alpha)
-		else
-			frame.eventmode = 0
-			UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-		end
-	end)
-	
-    UIFrameFadeOut(frame, fadeOut.time, frame:GetAlpha(), fadeOut.alpha)
-end
 
 ----------------------------------------------------------------------------------------------------
--- Move function
+-- Extra Move function
 ----------------------------------------------------------------------------------------------------
 T.ismove = {}
 T.Onmove = {}
-local function Move(PANEL, direction, lock)
+function T:Move(PANEL, direction, lock)
 	if T.ismove[PANEL] == nil then T.ismove[PANEL] = true end
 	if T.Onmove[PANEL] == nil then T.Onmove[PANEL] = false end
 	if lock and UnitAffectingCombat("player") then print("战斗中无法移动！") return end
@@ -256,7 +428,7 @@ local function Move(PANEL, direction, lock)
 				PANEL:SetPoint(Anchor, OriginalX + (Step/MaxStep)*Width, OriginalY)
 			elseif direction == "LEFT" then
 				PANEL:SetPoint(Anchor, OriginalX - (Step/MaxStep)*Width, OriginalY)
-			elseif direction =="UP" then
+			elseif direction == "UP" then
 				PANEL:SetPoint(Anchor, OriginalX, OriginalY + (Step/MaxStep)*Height)
 			else
 				PANEL:SetPoint(Anchor, OriginalX, OriginalY - (Step/MaxStep)*Height)
@@ -290,7 +462,7 @@ local function Move(PANEL, direction, lock)
 end
 
 
-local function MoveTo(PANEL, direction, lock)
+function T:MoveTo(PANEL, direction, lock)
 	if lock and UnitAffectingCombat("player") then print("战斗中无法移动！") return end
 
 	local Anchor, relativeTo, relativePoint, OriginalX, OriginalY = PANEL:GetPoint()
@@ -314,32 +486,4 @@ local function MoveTo(PANEL, direction, lock)
 			self:SetScript("OnUpdate", nil)
 		end
 	end)
-end
-
-----------------------------------------------------------------------------------------
---	Merge ShestakUI API with WoW API
-----------------------------------------------------------------------------------------
-local function addapi(object)
-	local mt = getmetatable(object).__index
-	
-	if not object.Fade then mt.Fade = Fade end
-	if not object.FadeTo then mt.FadeTo = FadeTo end
-	if not object.Move then mt.Move = Move end
-	if not object.MoveTo then mt.MoveTo = MoveTo end
-end
-
-local handled = {["Frame"] = true}
-local object = CreateFrame("Frame")
-addapi(object)
-addapi(object:CreateTexture())
-addapi(object:CreateFontString())
-
-object = EnumerateFrames()
-while object do
-	if not handled[object:GetObjectType()] then
-		addapi(object)
-		handled[object:GetObjectType()] = true
-	end
-
-	object = EnumerateFrames(object)
 end
