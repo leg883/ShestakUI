@@ -640,26 +640,26 @@ local function Shared(self, unit)
 			end
 		end
 
-		-- Vengeance bar
-		if C.unitframe_class_bar.vengeance == true then
-			self.VengeanceBar = CreateFrame("Frame", self:GetName().."_VengeanceBar", classbaranchor)
-			self.VengeanceBar:CreateBackdrop("Default")
-			self.VengeanceBar:SetPoint("BOTTOM", classbaranchor, "TOP", 0, 7)
-			self.VengeanceBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
+		-- Resolve bar
+		if C.unitframe_class_bar.resolve == true then
+			self.ResolveBar = CreateFrame("Frame", self:GetName().."_VengeanceBar", classbaranchor)
+			self.ResolveBar:CreateBackdrop("Default")
+			self.ResolveBar:SetPoint("BOTTOM", classbaranchor, "TOP", 0, 7)
+			self.ResolveBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 
-			self.VengeanceBar.Bar = CreateFrame("StatusBar", self:GetName().."_VengeanceBar.Bar", self.VengeanceBar)
-			self.VengeanceBar.Bar:SetPoint("LEFT", self.VengeanceBar, "LEFT", 0, 0)
-			self.VengeanceBar.Bar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
-			self.VengeanceBar.Bar:SetStatusBarTexture(C.media.texture)
-			self.VengeanceBar.Bar:SetStatusBarColor(T.color.r, T.color.g, T.color.b)
+			self.ResolveBar.Bar = CreateFrame("StatusBar", self:GetName().."_VengeanceBar.Bar", self.ResolveBar)
+			self.ResolveBar.Bar:SetPoint("LEFT", self.ResolveBar, "LEFT", 0, 0)
+			self.ResolveBar.Bar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
+			self.ResolveBar.Bar:SetStatusBarTexture(C.media.texture)
+			self.ResolveBar.Bar:SetStatusBarColor(T.color.r, T.color.g, T.color.b)
 
-			self.VengeanceBar.bg = self.VengeanceBar.Bar:CreateTexture(nil, "BORDER")
-			self.VengeanceBar.bg:SetAllPoints()
-			self.VengeanceBar.bg:SetTexture(C.media.texture)
-			self.VengeanceBar.bg:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
+			self.ResolveBar.bg = self.ResolveBar.Bar:CreateTexture(nil, "BORDER")
+			self.ResolveBar.bg:SetAllPoints()
+			self.ResolveBar.bg:SetTexture(C.media.texture)
+			self.ResolveBar.bg:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
 
-			self.VengeanceBar.Text = T.SetFontString(self.VengeanceBar.Bar, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			self.VengeanceBar.Text:SetPoint("CENTER", self.VengeanceBar.Bar, "CENTER", 0, 0)
+			self.ResolveBar.Text = T.SetFontString(self.ResolveBar.Bar, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			self.ResolveBar.Text:SetPoint("CENTER", self.ResolveBar.Bar, "CENTER", 0, 0)
 		end
 
 		-- Experience bar
@@ -877,10 +877,10 @@ local function Shared(self, unit)
 			end
 
 			-- Talent spec
-			if C.unitframe.plugins_talents == true then
-				self.Talents = T.SetFontString(self.Power, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-				self.Talents:SetTextColor(1, 0, 0)
-				self.Talents:SetPoint("BOTTOM", self.Power, "BOTTOM", 0, -1)
+			if C.unitframe.plugins_enemy_spec == true then
+				self.EnemySpec = T.SetFontString(self.Power, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+				self.EnemySpec:SetTextColor(1, 0, 0)
+				self.EnemySpec:SetPoint("BOTTOM", self.Power, "BOTTOM", 0, -1)
 			end
 
 			-- Quest icon
@@ -1222,15 +1222,15 @@ local function Shared(self, unit)
 		self.AuraTracker.text:SetPoint("CENTER", self.AuraTracker, 0, 0)
 		self.AuraTracker:SetScript("OnUpdate", T.AuraTrackerTime)
 
-		if C.unitframe.plugins_talents == true then
-			self.Talents = T.SetFontString(self.Power, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-			self.Talents:SetTextColor(1, 0, 0)
+		if C.unitframe.plugins_enemy_spec == true then
+			self.EnemySpec = T.SetFontString(self.Power, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+			self.EnemySpec:SetTextColor(1, 0, 0)
 			if C.unitframe.arena_on_right == true then
-				self.Talents:SetPoint("RIGHT", self.Power, "RIGHT", 0, 0)
-				self.Talents:SetJustifyH("LEFT")
+				self.EnemySpec:SetPoint("RIGHT", self.Power, "RIGHT", 0, 0)
+				self.EnemySpec:SetJustifyH("LEFT")
 			else
-				self.Talents:SetPoint("LEFT", self.Power, "LEFT", 2, 0)
-				self.Talents:SetJustifyH("RIGHT")
+				self.EnemySpec:SetPoint("LEFT", self.Power, "LEFT", 2, 0)
+				self.EnemySpec:SetJustifyH("RIGHT")
 			end
 		end
 	end
@@ -1566,25 +1566,10 @@ end
 ----------------------------------------------------------------------------------------
 --	Test UnitFrames(by community)
 ----------------------------------------------------------------------------------------
+local moving = false
 SlashCmdList.TEST_UF = function(msg)
-	if msg == "hide" or msg == "ршву" then
-		for _, frames in pairs({"oUF_Target", "oUF_TargetTarget", "oUF_Pet", "oUF_Focus", "oUF_FocusTarget"}) do
-			_G[frames].Hide = nil
-		end
-
-		if C.unitframe.show_arena == true then
-			for i = 1, 5 do
-				_G["oUF_Arena"..i].Hide = nil
-				_G["oUF_Arena"..i.."Target"].Hide = nil
-			end
-		end
-
-		if C.unitframe.show_boss == true then
-			for i = 1, MAX_BOSS_FRAMES do
-				_G["oUF_Boss"..i].Hide = nil
-			end
-		end
-	else
+	if InCombatLockdown() then print("|cffffff00"..ERR_NOT_IN_COMBAT.."|r") return end
+	if not moving then
 		for _, frames in pairs({"oUF_Target", "oUF_TargetTarget", "oUF_Pet", "oUF_Focus", "oUF_FocusTarget"}) do
 			_G[frames].Hide = function() end
 			_G[frames].unit = "player"
@@ -1604,8 +1589,8 @@ SlashCmdList.TEST_UF = function(msg)
 				_G["oUF_Arena"..i.."Target"]:Show()
 				_G["oUF_Arena"..i.."Target"]:UpdateAllElements()
 
-				if C.unitframe.plugins_talents == true then
-					_G["oUF_Arena"..i].Talents:SetText(TALENTS)
+				if C.unitframe.plugins_enemy_spec == true then
+					_G["oUF_Arena"..i].EnemySpec:SetText(TALENTS)
 				end
 
 				if C.unitframe.plugins_diminishing == true then
@@ -1622,6 +1607,25 @@ SlashCmdList.TEST_UF = function(msg)
 				_G["oUF_Boss"..i]:UpdateAllElements()
 			end
 		end
+		moving = true
+	else
+		for _, frames in pairs({"oUF_Target", "oUF_TargetTarget", "oUF_Pet", "oUF_Focus", "oUF_FocusTarget"}) do
+			_G[frames].Hide = nil
+		end
+
+		if C.unitframe.show_arena == true then
+			for i = 1, 5 do
+				_G["oUF_Arena"..i].Hide = nil
+				_G["oUF_Arena"..i.."Target"].Hide = nil
+			end
+		end
+
+		if C.unitframe.show_boss == true then
+			for i = 1, MAX_BOSS_FRAMES do
+				_G["oUF_Boss"..i].Hide = nil
+			end
+		end
+		moving = false
 	end
 end
 SLASH_TEST_UF1 = "/testui"

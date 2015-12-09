@@ -54,8 +54,10 @@ local list = {
 	1101,	-- Oil
 	1129,	-- Seal of Inevitable Fate
 	1166, 	-- Timewarped Badge (6.22)
+	1191, 	-- Valor Points (6.23)
 } 
 local BarBottom = true		--标题在下
+local ShowWeekly = true		--每周最大值
 local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 
 ----------------------------------------------------------------------------------------
@@ -64,7 +66,7 @@ local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[T.class]
 local function UpdateCurrency(self, event)
 	self.icon = {}
 	for i = 1, #list do 
-		local _, amount, _, _, _, totalMax = GetCurrencyInfo(list[i]) 
+		local _, amount, _, _, weeklyMax, totalMax = GetCurrencyInfo(list[i]) 
 		local icon = CreateFrame("Frame", nil, self) 
 		icon:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, (40*i+3*(i+1))-40)
 		icon:SetSize(16, 16)
@@ -80,7 +82,11 @@ local function UpdateCurrency(self, event)
 		if totalMax == 0 then
 			icon.Status:SetMinMaxValues(0, amount)
 		else
-			icon.Status:SetMinMaxValues(0, totalMax)
+			if ShowWeekly and weeklyMax > 0 then
+				icon.Status:SetMinMaxValues(0, weeklyMax)
+			else
+				icon.Status:SetMinMaxValues(0, totalMax)
+			end
 		end
 		icon.Status:SetValue(amount)
 		icon.Status:SetStatusBarColor(color.r, color.g, color.b)
@@ -119,11 +125,11 @@ local function UpdateCurrency(self, event)
 	end 
 
 	for i = 1, #list do 
-		local _, amount, _, _, _, totalMax = GetCurrencyInfo(list[i])
+		local _, amount, _, _, weeklyMax, totalMax = GetCurrencyInfo(list[i])
 		if totalMax == 0 then
 			self.icon[i].text:SetText(format('%s', amount))
 		else
-			self.icon[i].text:SetText(format('%s / %s', amount, totalMax))
+			self.icon[i].text:SetText(format('%s / %s [%s]', amount, weeklyMax, totalMax))
 		end
 	end
 end

@@ -7,7 +7,7 @@ local T, C, L, _ = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 if C.raidcooldown.enable == true then
 	T.raid_spells = {
-				--复活技能
+		--复活技能
 		[20484] = 600,	-- Rebirth 复生 德鲁伊
 		[61999] = 600,	-- Raise Ally 盟友复生 DK
 		[20707] = 600,	-- Soulstone 灵魂石 术士
@@ -47,6 +47,13 @@ if C.raidcooldown.enable == true then
 		[106898] = 120,  -- 狂奔怒吼 
 		[172106] = 180,  -- 灵狐守护 
 	}
+
+	for spell in pairs(T.raid_spells) do
+		local name = GetSpellInfo(spell)
+		if not name then
+			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
+		end
+	end
 end
 
 if C.enemycooldown.enable == true then
@@ -102,6 +109,13 @@ if C.enemycooldown.enable == true then
 		[33206] = 180,	-- Pain Suppression
 		[7744] = 180,	-- Will of the Forsaken (Racial)
 	}
+
+	for spell in pairs(T.raid_spells) do
+		local name = GetSpellInfo(spell)
+		if not name then
+			print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
+		end
+	end
 end
 
 if C.pulsecooldown.enable == true then

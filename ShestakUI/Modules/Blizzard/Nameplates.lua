@@ -385,6 +385,40 @@ local function SkinObjects(frame, nameFrame)
 	hp.bg:SetTexture(1, 1, 1, 0.2)
 
 --	--增加目标提示★
+--[[
+	hp.TargetIndicator = CreateFrame("Frame", self:GetName().."_TargetIndicator", hp)
+	hp.TargetIndicator:SetSize((C.nameplate.height * 2) + 11, (C.nameplate.height * 2) + 11)
+	hp.TargetIndicator:SetPoint("TOPRIGHT", hp, "TOPLEFT", -5, 2)
+	hp.TargetIndicator:SetTemplate("Transparent")
+	hp.TargetIndicator:SetScale(T.noscalemult)
+	hp.TargetIndicator:SetFrameLevel(hp:GetFrameLevel() -1 > 0 and hp:GetFrameLevel() -1 or 0)
+	
+	hp.TargetIndicator.P = CreateFrame("PlayerModel", nil, hp.TargetIndicator, "ModelTemplate")
+	hp.TargetIndicator.P:SetFrameLevel(hp.TargetIndicator:GetFrameLevel()+1)
+	hp.TargetIndicator.P:SetSize(100, 200)
+	hp.TargetIndicator.P:SetPoint("BOTTOM", hp.TargetIndicator, "BOTTOM", 0, 0)
+	hp.TargetIndicator.P:SetAlpha(1)
+	--hp.TargetIndicator.P:SetUnit("target")
+	--hp.TargetIndicator.P.guid = UnitGUID("target")
+	
+	hp.TargetIndicator.P:RegisterEvent("PLAYER_ENTERING_WORLD")
+	hp.TargetIndicator.P:RegisterEvent("UNIT_MODEL_CHANGED")
+	hp.TargetIndicator.P:RegisterEvent("UNIT_PORTRAIT_UPDATE")
+	hp.TargetIndicator.P:RegisterEvent("PLAYER_TARGET_CHANGED")
+	hp.TargetIndicator.P:SetScript("OnEvent", function(self, event)
+		hp.TargetIndicator.P:ClearModel()
+		hp.TargetIndicator.P:SetUnit("target")
+		hp.TargetIndicator.P.guid = UnitGUID("target")
+		local race, raceEn = UnitRace("target")
+		hp.TargetIndicator.P:SetCamDistanceScale(1)
+		local s = UIParent:GetScale()
+		hp.TargetIndicator.P:SetModelScale(0.66/s)		--(0.66/(OwD_DB["OwD_Scale"]*s)) 
+		hp.TargetIndicator.P:SetPortraitZoom(0.6)
+		hp.TargetIndicator.P:SetPosition(0, 0, -0.25)
+		hp.TargetIndicator.P:SetRotation(rad(30))
+	end)
+	]]
+
 	hp.TargetIndicator = CreateFrame("Frame", self:GetName().."_TargetIndicator", hp)
 	hp.TargetIndicator:SetFrameLevel(0)
 	hp.TargetIndicator:SetFrameStrata("BACKGROUND")
@@ -395,6 +429,7 @@ local function SkinObjects(frame, nameFrame)
 	hp.TargetIndicator:SetBackdropBorderColor(1, 1, 1, 1)
 	hp.TargetIndicator:SetScale(T.noscalemult*5)
 	hp.TargetIndicator:SetOutside(hp, 3, 3)
+
 --[[
 	hp.TargetIndicator.bordertop = hp.TargetIndicator:CreateTexture(nil, "BORDER")
 	hp.TargetIndicator.bordertop:SetPoint("BOTTOM", hp, "TOP", T.noscalemult * 0, T.noscalemult * 3)
