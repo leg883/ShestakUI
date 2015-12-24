@@ -5,7 +5,7 @@ if C.unitframe.enable ~= true then return end
 -- UnitFrames based on oUF_Caellian(by Caellian)
 ----------------------------------------------------------------------------------------
 local oUF = oUFShestakUI
-print(oUF)
+--print(oUF)
 ----------------------------------------------------------------------------------------
 local width, height, space = 217, 7, 7
 -- ClassBarAnchor
@@ -419,25 +419,25 @@ local function Shared(self, unit)
 			end
 		end
 
-		-- Vengeance bar
-		self.VengeanceBar = CreateFrame("Frame", self:GetName().."_VengeanceBar", extclassbaranchor)
-		self.VengeanceBar:CreateBackdrop("Default")
-		self.VengeanceBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, 2*(height+space))
-		self.VengeanceBar:SetSize(width, height)
+		-- Resolve bar
+		self.ResolveBar = CreateFrame("Frame", self:GetName().."_ResolveBar", extclassbaranchor)
+		self.ResolveBar:CreateBackdrop("Default")
+		self.ResolveBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, 2*(height+space))
+		self.ResolveBar:SetSize(width, height)
 
-		self.VengeanceBar.Bar = CreateFrame("StatusBar", self:GetName().."_VengeanceBar.Bar", self.VengeanceBar)
-		self.VengeanceBar.Bar:SetPoint("LEFT", self.VengeanceBar, "LEFT", 0, 0)
-		self.VengeanceBar.Bar:SetSize(width, height)
-		self.VengeanceBar.Bar:SetStatusBarTexture(C.media.texture)
-		self.VengeanceBar.Bar:SetStatusBarColor(T.color.r, T.color.g, T.color.b)
+		self.ResolveBar.Bar = CreateFrame("StatusBar", self:GetName().."_ResolveBar.Bar", self.ResolveBar)
+		self.ResolveBar.Bar:SetPoint("LEFT", self.ResolveBar, "LEFT", 0, 0)
+		self.ResolveBar.Bar:SetSize(width, height)
+		self.ResolveBar.Bar:SetStatusBarTexture(C.media.texture)
+		self.ResolveBar.Bar:SetStatusBarColor(T.color.r, T.color.g, T.color.b)
 
-		self.VengeanceBar.bg = self.VengeanceBar.Bar:CreateTexture(nil, "BORDER")
-		self.VengeanceBar.bg:SetAllPoints()
-		self.VengeanceBar.bg:SetTexture(C.media.texture)
-		self.VengeanceBar.bg:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
+		self.ResolveBar.bg = self.ResolveBar.Bar:CreateTexture(nil, "BORDER")
+		self.ResolveBar.bg:SetAllPoints()
+		self.ResolveBar.bg:SetTexture(C.media.texture)
+		self.ResolveBar.bg:SetVertexColor(T.color.r, T.color.g, T.color.b, 0.2)
 
-		self.VengeanceBar.Text = T.SetFontString(self.VengeanceBar.Bar, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
-		self.VengeanceBar.Text:SetPoint("CENTER", self.VengeanceBar.Bar, "CENTER", 0, 0)
+		self.ResolveBar.Text = T.SetFontString(self.ResolveBar.Bar, C.font.unit_frames_font, C.font.unit_frames_font_size, C.font.unit_frames_font_style)
+		self.ResolveBar.Text:SetPoint("CENTER", self.ResolveBar.Bar, "CENTER", 0, 0)
 
 		-- Monk mana
 		if T.class == "MONK" then

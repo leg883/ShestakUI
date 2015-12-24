@@ -1,9 +1,9 @@
 local T, C, L, _ = unpack(select(2, ...))
 if C.actionbar.enable ~= true then return end
 
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --	Manage others stuff for ActionBars(by Tukz)
-------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
@@ -73,15 +73,31 @@ hooksecurefunc("MainMenuBarVehicleLeaveButton_Update", function()
 	end
 end)
 
---set tooltip
+hooksecurefunc("PossessBar_UpdateState", function()
+	for i = 1, NUM_POSSESS_SLOTS do
+		local _, name, enabled = GetPossessInfo(i)
+		if enabled then
+			vehicle:SetScript("OnClick", function()
+				CancelUnitBuff("player", name)
+			end)
+			vehicle:Show()
+		else
+			vehicle:Hide()
+		end
+	end
+end)
+
+-- Set tooltip
 vehicle:SetScript("OnEnter", function(self)
 	if UnitOnTaxi("player") then
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-		GameTooltip:SetText(TAXI_CANCEL, T.color.r, T.color.g, T.color.b);
-		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, 1, 1, 1, true);
-		GameTooltip:Show();
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(TAXI_CANCEL, T.color.r, T.color.g, T.color.b)
+		GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, 1, 1, 1, true)
+		GameTooltip:Show()
+	elseif IsPossessBarVisible() then
+		GameTooltip_AddNewbieTip(self, CANCEL, T.color.r, T.color.g, T.color.b, nil)
 	else
-		GameTooltip_AddNewbieTip(self, LEAVE_VEHICLE, T.color.r, T.color.g, T.color.b, nil);
+		GameTooltip_AddNewbieTip(self, LEAVE_VEHICLE, T.color.r, T.color.g, T.color.b, nil)
 	end
 end)
 vehicle:SetScript("OnLeave", function() GameTooltip:Hide() end)

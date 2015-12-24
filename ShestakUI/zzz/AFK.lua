@@ -219,8 +219,8 @@ end
 ----------------------------------------------------------------------------------------------------
 local AFK = CreateFrame("Frame", "AFK", WorldFrame)
 AFK:SetFrameStrata("FULLSCREEN")
-AFK:SetPoint("BOTTOMLEFT",WorldFrame,"BOTTOMLEFT",-5,-5)
-AFK:SetPoint("TOPRIGHT",WorldFrame,"BOTTOMRIGHT",5,60)
+AFK:SetPoint("BOTTOMLEFT", WorldFrame, "BOTTOMLEFT", -5, -5)
+AFK:SetPoint("TOPRIGHT", WorldFrame, "BOTTOMRIGHT", 5, 60)
 SetBD(AFK)
 AFK:Hide()
 

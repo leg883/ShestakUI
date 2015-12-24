@@ -369,8 +369,9 @@ function T.SkinDropDownBox(frame, width)
 	frame.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
 
-function T.SkinCheckBox(frame)
-	frame:StripTextures()
+function T.SkinCheckBox(frame, default)
+	frame:SetNormalTexture("")
+	frame:SetPushedTexture("")
 	frame:CreateBackdrop("Overlay")
 	frame:SetFrameLevel(frame:GetFrameLevel() + 2)
 	frame.backdrop:SetPoint("TOPLEFT", 4, -4)
@@ -385,11 +386,15 @@ function T.SkinCheckBox(frame)
 	end
 
 	if frame.SetCheckedTexture then
-		local checked = frame:CreateTexture(nil, nil, self)
-		checked:SetTexture(1, 0.82, 0, 0.8)
-		checked:SetPoint("TOPLEFT", frame, 6, -6)
-		checked:SetPoint("BOTTOMRIGHT", frame, -6, 6)
-		frame:SetCheckedTexture(checked)
+		if default then
+			frame:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
+		else
+			local checked = frame:CreateTexture(nil, nil, self)
+			checked:SetTexture(1, 0.82, 0, 0.8)
+			checked:SetPoint("TOPLEFT", frame, 6, -6)
+			checked:SetPoint("BOTTOMRIGHT", frame, -6, 6)
+			frame:SetCheckedTexture(checked)
+		end
 	end
 
 	if frame.SetDisabledCheckedTexture then

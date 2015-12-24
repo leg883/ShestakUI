@@ -171,6 +171,7 @@ C["combattext"] = {
 	["dispel"] = true,							-- Tells you about your dispels(works only with ["damage"] = true)
 	["interrupt"] = true,						-- Tells you about your interrupts(works only with ["damage"] = true)
 	["direction"] = "bottom",					-- Scrolling Direction("top"(goes down) or "bottom"(goes up))
+	["short_numbers"] = true,					-- Use short numbers ("25.3k" instead of "25342")
 }
 
 ----------------------------------------------------------------------------------------
@@ -505,6 +506,7 @@ C["raidframe"] = {
 	["plugins_debuffhighlight_icon"] = false,	-- Debuff highlight texture + icon
 	["plugins_aura_watch"] = true,				-- Raid debuff icons
 	["plugins_aura_watch_timer"] = false,		-- Timer on raid debuff icons
+	["plugins_pvp_debuffs"] = false,			-- Show also PvP debuff icons (from the list)
 	["plugins_healcomm"] = true,				-- Incoming heal bar on raid frame
 	["plugins_auto_resurrection"] = false,		-- Auto cast resurrection on middle-click(doesn't work with Clique)
 }

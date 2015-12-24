@@ -743,9 +743,9 @@ if clock.enabled then
 					end
 					if (numEncounters and numEncounters > 0) and (encounterProgress and encounterProgress > 0) then
 						if maxPlayers == 5 and difficulty == 23 then
-						GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", "M: "..name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
+							GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", "M: "..name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
 						else
-						GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
+							GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s] (%s/%s)", name, maxPlayers, diff or "", encounterProgress, numEncounters), fmttime(reset), 1, 1, 1, tr, tg, tb)
 						end
 					else
 						GameTooltip:AddDoubleLine(format("%s |cffaaaaaa[%s%s]", name, maxPlayers, diff or ""), fmttime(reset), 1, 1, 1, tr, tg, tb)
@@ -769,7 +769,7 @@ if clock.enabled then
 				for i, q in ipairs({36054, 36055, 36056, 36057, 36058, 36060, 37453, 37452, 37454, 37455, 37456, 37457, 37458, 37459}) do if IsQuestFlaggedCompleted(q) then c = c + 1 end end
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(MISCELLANEOUS, ttsubh.r, ttsubh.g, ttsubh.b)
-				GameTooltip:AddDoubleLine("Seals this week" .. ": ", c, 1, 1, 1, 1, 1, 1)
+				GameTooltip:AddDoubleLine(L_STATS_SEALS..": ", c, 1, 1, 1, 1, 1, 1)
 			end
 			GameTooltip:Show()
 		end,
@@ -1508,11 +1508,7 @@ if stats.enabled then
 		OnUpdate = function(self, u)
 			self.elapsed = self.elapsed + u
 			if self.fired and self.elapsed > 2.5 then
-				if T.level >= SHOW_TALENT_LEVEL then
-				self.text:SetText(gsub(stats[format("spec%dfmt", GetSpecialization())], "%[(%w-)%]", tags))
-				else
-				self.text:SetText(gsub(stats[format("spec%dfmt", GetActiveSpecGroup())], "%[(%w-)%]", tags))
-				end
+				self.text:SetText(gsub(stats[format("spec%dfmt", GetSpecialization() and GetSpecialization() or 1)], "%[(%w-)%]", tags))
 				self.elapsed, self.fired = 0, false
 			end
 		end

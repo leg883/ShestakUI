@@ -10,17 +10,17 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 
 	-- Stuff not in Blizzard load-on-demand
 	if addon == "ShestakUI" then
-		--Skinn checkButtons
+		-- Skin checkButtons
 		local checkButtons = {
 			"LFDRoleCheckPopupRoleButtonTank",
 			"LFDRoleCheckPopupRoleButtonDPS",
 			"LFDRoleCheckPopupRoleButtonHealer"
-			}
+		}
 
 		for _, object in pairs(checkButtons) do
 			T.SkinCheckBox(_G[object].checkButton)
 		end
-		
+
 		-- Blizzard Frame reskin
 		local bgskins = {
 			"GameMenuFrame",
@@ -98,8 +98,14 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 		SplashFrame:CreateBackdrop("Transparent")
 		SplashFrame.BottomCloseButton:SkinButton()
 		T.SkinCloseButton(SplashFrame.TopCloseButton)
-		
-		--NavBar Buttons (Used in WorldMapFrame, EncounterJournal and HelpFrame)
+
+		-- Social Browser frame
+		SocialBrowserFrame:StripTextures()
+		SocialBrowserFrame:SetTemplate("Transparent")
+		T.SkinCloseButton(SocialBrowserFrame.CloseButton)
+		SocialBrowserFrame.CloseButton:SetSize(16, 16)
+
+		-- NavBar Buttons (Used in WorldMapFrame, EncounterJournal and HelpFrame)
 		local function SkinNavBarButtons(self)
 			local navButton = self.navList[#self.navList]
 			if navButton and not navButton.isSkinned then
@@ -115,6 +121,13 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 		_G["CinematicFrameCloseDialogConfirmButton"]:SkinButton()
 		_G["CinematicFrameCloseDialogResumeButton"]:SkinButton()
 		_G["CinematicFrameCloseDialogResumeButton"]:SetPoint("LEFT", _G["CinematicFrameCloseDialogConfirmButton"], "RIGHT", 15, 0)
+
+		-- Movie popup
+		MovieFrame.CloseDialog:SetScale(C.general.uiscale)
+		MovieFrame.CloseDialog:SetTemplate("Transparent")
+		MovieFrame.CloseDialog.ConfirmButton:SkinButton()
+		MovieFrame.CloseDialog.ResumeButton:SkinButton()
+		MovieFrame.CloseDialog.ResumeButton:SetPoint("LEFT", MovieFrame.CloseDialog.ConfirmButton, "RIGHT", 15, 0)
 
 		-- PetBattle popup
 		_G["PetBattleQueueReadyFrame"]:SetTemplate("Transparent")
@@ -230,7 +243,10 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 		}
 
 		for _, scrollbar in pairs(scrollbars) do
-			T.SkinScrollBar(_G[scrollbar])
+			local bars = _G[_G[scrollbar]]
+			if bars then
+				T.SkinScrollBar(bars)
+			end
 		end
 
 		-- Button position or text
@@ -266,13 +282,14 @@ SkinBlizzUI:SetScript("OnEvent", function(self, event, addon)
 		_G["ChannelPulloutTabMiddle"]:SetTexture(nil)
 		_G["ChannelPulloutTabRight"]:SetTexture(nil)
 		_G["StaticPopup1CloseButton"]:HookScript("OnShow", function(self)
-				self:StripTextures(true)
-				T.SkinCloseButton(self, nil, "-")
-			end)
+			self:StripTextures(true)
+			T.SkinCloseButton(self, nil, "-")
+		end)
 		T.SkinCloseButton(_G["ChannelPulloutCloseButton"])
 		T.SkinCloseButton(_G["RolePollPopupCloseButton"])
 		T.SkinCloseButton(_G["ItemRefCloseButton"])
 		T.SkinCloseButton(_G["BNToastFrameCloseButton"])
+		T.SkinCloseButton(FloatingGarrisonFollowerTooltip.CloseButton)
 		if C.skins.blizzard_frames == true then
 			if T.client == "ruRU" then
 				_G["DeclensionFrame"]:SetTemplate("Transparent")
