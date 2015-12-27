@@ -29,7 +29,8 @@ T.MoverFrames = {
 	oUF_Target_Castbar,
 	oUF_Player_Portrait,
 	oUF_Target_Portrait,
-	ClassBarAnchor,
+	ExtraButtonAnchor,
+	ClassBarAnchor
 }
 
 local moving = false
@@ -41,7 +42,6 @@ local placed = {
 	"stArchaeologyFrame",
 	"StuffingFrameBags",
 	"StuffingFrameBank",
-	"ExtraActionBarFrame",
 	"alDamageMeterFrame"
 }
 

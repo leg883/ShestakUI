@@ -412,6 +412,17 @@ C["aura"] = {
 }
 
 ----------------------------------------------------------------------------------------
+--	Filger options
+----------------------------------------------------------------------------------------
+C["filger"] = {
+	["enable"] = true,							-- Enable Filger
+	["test_mode"] = false,						-- Test icon mode
+	["max_test_icon"] = 5,						-- The number of icons to the test
+	["show_tooltip"] = false,					-- Show tooltip
+	["disable_cd"] = false,						-- Disable cooldowns
+}
+ 
+----------------------------------------------------------------------------------------
 --	Unit Frames options
 ----------------------------------------------------------------------------------------
 C["unitframe"] = {
@@ -436,6 +447,8 @@ C["unitframe"] = {
 	["boss_on_right"] = true,					-- Boss frames on the right
 	["show_arena"] = true,						-- Show arena frames
 	["arena_on_right"] = true,					-- Arena frames on the right
+	["boss_debuffs"] = 3,						-- Number of debuffs on the boss frames
+	["boss_buffs"] = 3,							-- Number of buffs on the boss frames
 	-- Icons
 	["icons_pvp"] = false,						-- Mouseover PvP text(not icons) on player and target frames
 	["icons_combat"] = true,					-- Combat icon

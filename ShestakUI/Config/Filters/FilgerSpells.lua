@@ -1,5 +1,5 @@
-local T, C, L, _ = unpack(ShestakUI)
-if C.unitframe.enable ~= true then return end
+local T, C, L, _ = unpack(select(2, ...))
+if C.unitframe.enable ~= true or C.filger.enable ~= true then return end
 
 C["filger_spells"] = {
 	["DEATHKNIGHT"] = {
@@ -10,7 +10,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 
 		},
@@ -21,7 +21,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 				--血魄護盾
                 {spellID = 77535, unitID = "player", caster = "player", filter = "BUFF"},
@@ -65,7 +65,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 
 		},
@@ -76,7 +76,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 				--絞殺
                 {spellID = 47476, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -101,7 +101,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 186,
-			Position = {unpack(C["filger_position"].target_bar)},
+			Position = {unpack(C.position.filger.target_bar)},
 
 			-- Blood Plague
 			{spellID = 55078, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -115,7 +115,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 			
 			-- Self
 			-- Mind Freeze
@@ -217,7 +217,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--生命之花
             {spellID = 33763, unitID = "player", caster = "player", filter = "BUFF"},
@@ -237,7 +237,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 				--日之巅
                 {spellID = 171744, unitID = "player", caster = "player", filter = "BUFF"},
@@ -311,7 +311,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 				--生命之花
                 {spellID = 33763, unitID = "target", caster = "player", filter = "BUFF"},
@@ -331,7 +331,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 				--糾纏根鬚
                 {spellID = 339, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -365,7 +365,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 186,
-			Position = {unpack(C["filger_position"].target_bar)},
+			Position = {unpack(C.position.filger.target_bar)},
 
 			-- Lifebloom
 			{spellID = 33763, unitID = "target", caster = "player", filter = "BUFF"},
@@ -387,7 +387,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Cyclone
 			{spellID = 33786, unitID = "focus", caster = "all", filter = "DEBUFF"},
@@ -401,7 +401,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Nature's Cure
@@ -491,7 +491,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 				--狙击训练
                 {spellID = 168811, unitID = "player", caster = "player", filter = "BUFF"},
@@ -505,7 +505,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 				--誤導
                 {spellID = 34477, unitID = "player", caster = "player", filter = "BUFF"},
@@ -540,7 +540,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 				--獵人印記
                 {spellID = 1130, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -552,7 +552,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 				--翼龍釘刺
                 {spellID = 19386, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -574,7 +574,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Wyvern Sting
 			{spellID = 19386, unitID = "focus", caster = "player", filter = "DEBUFF"},
@@ -586,7 +586,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Concussive Shot
@@ -692,7 +692,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			
 		},
@@ -703,7 +703,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--冰霜之指
 			{spellID = 44544, unitID = "player", caster = "player", filter = "BUFF"},
@@ -751,7 +751,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 
 		},
@@ -762,7 +762,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--變形術
 			{spellID = 118, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -794,7 +794,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Polymorph
 			{spellID = 118, unitID = "focus", caster = "all", filter = "DEBUFF"},
@@ -808,7 +808,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Remove Curse
@@ -922,7 +922,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--飄渺絕釀
 			{spellID = 128939, unitID = "player", caster = "player", filter = "BUFF"},
@@ -950,7 +950,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--虎掌
 			{spellID = 125359, unitID = "player", caster = "player", filter = "BUFF"},
@@ -984,7 +984,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			--回生迷霧
 			{spellID = 119611, unitID = "target", caster = "player", filter = "BUFF"},
@@ -1000,7 +1000,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--掃葉腿
 			{spellID = 119381, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -1016,7 +1016,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Detox
@@ -1110,7 +1110,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--聖光信標
 			{spellID = 53563, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1126,7 +1126,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--神聖之盾
 			{spellID = 20925, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1174,7 +1174,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			--聖光信標
 			{spellID = 53563, unitID = "target", caster = "player", filter = "BUFF"},
@@ -1196,7 +1196,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--制裁之錘
 			{spellID = 853, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -1218,7 +1218,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Cleanse
@@ -1302,7 +1302,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--真言術：盾
 			{spellID = 17, unitID = "player", caster = "all", filter = "BUFF"},
@@ -1334,7 +1334,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--機緣回復
 			{spellID = 63735, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1378,7 +1378,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			--真言术：盾
 			{spellID = 17, unitID = "target", caster = "all", filter = "BUFF"},
@@ -1396,7 +1396,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--束縛不死生物
 			{spellID = 9484, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -1434,7 +1434,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 186,
-			Position = {unpack(C["filger_position"].target_bar)},
+			Position = {unpack(C.position.filger.target_bar)},
 
 			-- Renew
 			{spellID = 139, unitID = "target", caster = "player", filter = "BUFF"},
@@ -1460,7 +1460,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Shackle Undead
 			{spellID = 9484, unitID = "focus", caster = "player", filter = "DEBUFF"},
@@ -1476,7 +1476,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Purify
@@ -1576,7 +1576,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--淺察
 			{spellID = 84745, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1596,7 +1596,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--疾跑
 			{spellID = 2983, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1646,7 +1646,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			--致命毒藥
 			{spellID = 2818, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -1664,7 +1664,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--偷襲
 			{spellID = 1833, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -1710,7 +1710,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Blind
 			{spellID = 2094, unitID = "focus", caster = "player", filter = "DEBUFF"},
@@ -1724,7 +1724,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Stealth
@@ -1800,7 +1800,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--Earth Shield / Erdschild
 			{spellID = 974, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1818,7 +1818,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--Maelstorm Weapon / Waffe des Mahlstroms
 			{spellID = 53817, unitID = "player", caster = "player", filter = "BUFF"},
@@ -1864,7 +1864,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			--Earth Shield / Erdschild
 			{spellID = 974, unitID = "target", caster = "player", filter = "BUFF"},
@@ -1880,7 +1880,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--Hex / Verhexen
 			{spellID = 51514, unitID = "target", caster = "all", filter = "DEBUFF"},
@@ -1904,7 +1904,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 186,
-			Position = {unpack(C["filger_position"].target_bar)},
+			Position = {unpack(C.position.filger.target_bar)},
 
 			-- Earth Shield
 			{spellID = 974, unitID = "target", caster = "player", filter = "BUFF"},
@@ -1920,7 +1920,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Hex
 			{spellID = 51514, unitID = "focus", caster = "player", filter = "DEBUFF"},
@@ -1932,7 +1932,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			--升腾
@@ -2018,7 +2018,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--黑暗再生
 			{spellID = 108359, unitID = "player", caster = "player", filter = "BUFF"},
@@ -2048,7 +2048,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--灵魂燃烧
 			{spellID = 74434, unitID = "player", caster = "player", filter = "BUFF"},
@@ -2088,7 +2088,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 			
 		},
@@ -2099,7 +2099,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--恐懼術
 			{spellID = 118699, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -2141,7 +2141,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 186,
-			Position = {unpack(C["filger_position"].target_bar)},
+			Position = {unpack(C.position.filger.target_bar)},
 
 			-- Doom
 			{spellID = 603, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -2167,7 +2167,7 @@ C["filger_spells"] = {
 			Alpha = 1,
 			IconSize = 25,
 			BarWidth = 189,
-			Position = {unpack(C["filger_position"].pve_cc)},
+			Position = {unpack(C.position.filger.pve_cc)},
 
 			-- Fear
 			{spellID = 118699, unitID = "focus", caster = "player", filter = "DEBUFF"},
@@ -2183,7 +2183,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 			
 			-- Self
 			-- Devour Magic (Felhunter)
@@ -2251,7 +2251,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_buff)},
+			Position = {unpack(C.position.filger.player_buff)},
 
 			--勝利
 			{spellID = 32216, unitID = "player", caster = "player", filter = "BUFF"},
@@ -2267,7 +2267,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].player_proc)},
+			Position = {unpack(C.position.filger.player_proc)},
 
 			--驟亡
 			{spellID = 52437, unitID = "player", caster = "player", filter = "BUFF"},
@@ -2325,7 +2325,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_buff)},
+			Position = {unpack(C.position.filger.target_buff)},
 
 
 		},
@@ -2336,7 +2336,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 37,
-			Position = {unpack(C["filger_position"].target_proc)},
+			Position = {unpack(C.position.filger.target_proc)},
 
 			--撕裂
 			{spellID = 772, unitID = "target", caster = "player", filter = "DEBUFF"},
@@ -2362,7 +2362,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 30,
-			Position = {unpack(C["filger_position"].cooldown)},
+			Position = {unpack(C.position.filger.cooldown)},
 
 			-- Self
 			-- Pummel
@@ -2450,7 +2450,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 45,
-			Position = {unpack(C["filger_position"].player_special)},
+			Position = {unpack(C.position.filger.player_special)},
 
 			--飾品
 				-- 尼萨姆斯(智力输出)
@@ -2916,7 +2916,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 60,
-			Position = {unpack(C["filger_position"].player_raid)},
+			Position = {unpack(C.position.filger.player_raid)},
 
         --副本
 			-- 60200地狱火堡垒
@@ -3675,7 +3675,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 60,
-			Position = {unpack(C["filger_position"].target_raid)},
+			Position = {unpack(C.position.filger.target_raid)},
 
         --副本
 			-- 60200地狱火堡垒
@@ -3783,7 +3783,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 45,
-			Position = {unpack(C["filger_position"].pve_player)},
+			Position = {unpack(C.position.filger.pve_player)},
 		--职业
 			--死亡騎士
                 -- 啃食
@@ -4028,7 +4028,7 @@ C["filger_spells"] = {
 			Interval = 3,
 			Alpha = 1,
 			IconSize = 45,
-			Position = {unpack(C["filger_position"].pve_target)},
+			Position = {unpack(C.position.filger.pve_target)},
 
 	--职业
 		-- Death knight

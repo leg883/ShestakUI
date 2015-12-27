@@ -1268,8 +1268,8 @@ local function Shared(self, unit)
 				self.Auras.initialAnchor = "LEFT"
 				self.Auras["growth-x"] = "RIGHT"
 			end
-			self.Auras.numDebuffs = 3	--boss框架debuff改为3
-			self.Auras.numBuffs = 3
+			self.Auras.numDebuffs = C.unitframe.boss_debuffs
+			self.Auras.numBuffs = C.unitframe.boss_buffs
 			self.Auras:SetHeight(31)
 			self.Auras:SetWidth(87)
 			self.Auras.spacing = T.Scale(3)

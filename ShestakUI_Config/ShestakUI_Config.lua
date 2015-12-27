@@ -25,13 +25,14 @@ local ALLOWED_GROUPS = {
 	["nameplate"] = 18,
 	["actionbar"] = 19,
 	["aura"] = 20,
-	["unitframe"] = 21,
-	["unitframe_class_bar"] = 22,
-	["raidframe"] = 23,
-	["toppanel"] = 24,
-	["error"] = 25,
-	["stats"] = 26,
-	["zzz"] = 27,
+	["filger"] = 21,
+	["unitframe"] = 22,
+	["unitframe_class_bar"] = 23,
+	["raidframe"] = 24,
+	["toppanel"] = 25,
+	["error"] = 26,
+	["stats"] = 27,
+	["zzz"] = 28,
 }
 
 local function Local(o)
@@ -352,6 +353,14 @@ local function Local(o)
 	if o == "UIConfigauracast_by" then o = L_GUI_AURA_CAST_BY end
 	if o == "UIConfigauraclasscolor_border" then o = L_GUI_AURA_CLASSCOLOR_BORDER end
 
+	-- Filger
+	if o == "UIConfigfilger" then o = L_GUI_FILGER end
+	if o == "UIConfigfilgerenable" then o = L_GUI_FILGER_ENABLE end
+	if o == "UIConfigfilgertest_mode" then o = L_GUI_FILGER_TEST_MODE end
+ 	if o == "UIConfigfilgermax_test_icon" then o = L_GUI_FILGER_MAX_TEST_ICON end
+	if o == "UIConfigfilgershow_tooltip" then o = L_GUI_FILGER_SHOW_TOOLTIP end
+	if o == "UIConfigfilgerdisable_cd" then o = L_GUI_FILGER_DISABLE_CD end
+ 
 	-- Unit Frames options
 	if o == "UIConfigunitframe" then o = UNITFRAME_LABEL end
 	if o == "UIConfigunitframeenable" then o = L_GUI_UF_ENABLE end
@@ -372,6 +381,8 @@ local function Local(o)
 	if o == "UIConfigunitframeboss_on_right" then o = L_GUI_UF_BOSS_RIGHT end
 	if o == "UIConfigunitframeshow_arena" then o = L_GUI_UF_SHOW_ARENA end
 	if o == "UIConfigunitframearena_on_right" then o = L_GUI_UF_ARENA_RIGHT end
+	if o == "UIConfigunitframeboss_debuffs" then o = L_GUI_UF_BOSS_DEBUFFS end
+	if o == "UIConfigunitframeboss_buffs" then o = L_GUI_UF_BOSS_BUFFS end
 	if o == "UIConfigunitframeicons_pvp" then o = L_GUI_UF_ICONS_PVP end
 	if o == "UIConfigunitframeicons_combat" then o = L_GUI_UF_ICONS_COMBAT end
 	if o == "UIConfigunitframeicons_resting" then o = L_GUI_UF_ICONS_RESTING end
