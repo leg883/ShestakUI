@@ -30,13 +30,11 @@ local function Shared(self, unit)
 	self.colors = T.oUF_colors
 
 	-- Register click
-	self:RegisterForClicks("AnyUp")
-	self:SetScript("OnEnter", UnitFrame_OnEnter)
-	self:SetScript("OnLeave", UnitFrame_OnLeave)
+	--self:RegisterForClicks("AnyUp")
+	--self:SetScript("OnEnter", UnitFrame_OnEnter)
+	--self:SetScript("OnLeave", UnitFrame_OnLeave)
 
-	local unit = (unit and unit:find("arena%dtarget")) and "arenatarget"
-	or (unit and unit:find("arena%d")) and "arena"
-	or (unit and unit:find("boss%d")) and "boss" or unit
+	local unit = unit
 
 	-- Backdrop for every units
 	self:CreateBackdrop("Default")

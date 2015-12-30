@@ -10,7 +10,7 @@ threat:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	--  命名空间  --
 	----------------
 	local cfg = CreateFrame("Frame")
-	local Media = "Interface\\AddOns\\ShestakUI\\zzz\\Threat\\Media"
+	local Media = "Interface\\AddOns\\ShestakUI\\Modules\\zzz\\Threat\\Media"
 	cfg.Statusbar = Media.."dM2"
 	cfg.GlowTex = Media.."Normal"
 	cfg.Solid = Media.."dM2"
