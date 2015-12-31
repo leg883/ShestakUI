@@ -2,7 +2,7 @@
 ## Title: ShestakUI_ExtClassBar
 ## Notes: Extra ClassBar for ShestakUI
 ## Author: Leg883@NGA.CN
-## Version: 0.1
+## Version: 1.0
 
 ## RequiredDeps: ShestakUI
 ## SavedVariablesPerCharacter: ExtClassBarDB

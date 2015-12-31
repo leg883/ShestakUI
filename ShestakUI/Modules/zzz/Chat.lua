@@ -85,7 +85,7 @@ if C.zzz.Chat_HideLanguage == true then
 	f:SetScript("OnEvent", function(self, event, ...)
 		for i = 1, NUM_CHAT_WINDOWS do
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:ClearAllPoints()
-			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetPoint("right",ChatFrame1EditBox,"LEFT",17,0)
+			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetPoint("right", ChatFrame1EditBox, "LEFT", 17, 0)
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetAlpha(0) 
 		end
 		
@@ -96,6 +96,23 @@ if C.zzz.Chat_HideLanguage == true then
 	end)
 end
 
+---------------------------------------------------------------
+-- 修改頻道保持
+---------------------------------------------------------------
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD") 
+f:SetScript("OnEvent", function(self, event, ...)
+	ChatTypeInfo.YELL.sticky = 0
+	ChatTypeInfo.RAID_WARNING.sticky = 0
+	ChatTypeInfo.WHISPER.sticky = 0
+	ChatTypeInfo.BN_WHISPER.sticky = 0
+	ChatTypeInfo.CHANNEL.sticky = 0
+	
+	if event == "PLAYER_ENTERING_WORLD" then 
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		
+	end
+end)
 
 ---------------------------------------------------------------
 -- 輸入/bn直接發送通告

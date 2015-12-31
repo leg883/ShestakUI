@@ -128,6 +128,8 @@ local function UpdateCurrency(self, event)
 		local _, amount, _, _, weeklyMax, totalMax = GetCurrencyInfo(list[i])
 		if totalMax == 0 then
 			self.icon[i].text:SetText(format('%s', amount))
+		elseif weeklyMax == 0 then
+			self.icon[i].text:SetText(format('%s / [%s]', amount, totalMax))
 		else
 			self.icon[i].text:SetText(format('%s / %s [%s]', amount, weeklyMax, totalMax))
 		end
