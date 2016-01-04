@@ -66,6 +66,7 @@ local function LoadSkin()
 
 	LFGListApplicationDialog.SignUpButton:SkinButton()
 	LFGListApplicationDialog.CancelButton:SkinButton()
+
 	local checkButtons = {
 		"LFDQueueFrameRoleButtonTank",
 		"LFDQueueFrameRoleButtonHealer",
@@ -84,6 +85,20 @@ local function LoadSkin()
 	T.SkinCheckBox(LFGListApplicationDialog.TankButton.CheckButton)
 	T.SkinCheckBox(LFGListApplicationDialog.HealerButton.CheckButton)
 	T.SkinCheckBox(LFGListApplicationDialog.DamagerButton.CheckButton)
+
+	local scrollbars = {
+		"ScenarioQueueFrameSpecificScrollFrameScrollBar",
+		"LFGListApplicationViewerScrollFrameScrollBar",
+		"LFDQueueFrameSpecificListScrollFrameScrollBar",
+		"LFDQueueFrameRandomScrollFrameScrollBar"
+	}
+
+	for _, scrollbar in pairs(scrollbars) do
+		T.SkinScrollBar(_G[scrollbar])
+	end
+
+	T.SkinScrollBar(LFGListFrame.SearchPanel.ScrollFrame.scrollBar)
+
 	for i = 1, 4 do
 		local button = GroupFinderFrame["groupButton"..i]
 
@@ -369,6 +384,7 @@ local function LoadSkin()
 	LFGListFrame.CategorySelection.FindGroupButton:SkinButton()
 	LFGListFrame.CategorySelection.StartGroupButton:SkinButton()
 	LFGListFrame.SearchPanel.RefreshButton:SkinButton()
+	LFGListFrame.SearchPanel.FilterButton:SkinButton()
 	LFGListFrame.SearchPanel.BackButton:SkinButton()
 	LFGListFrame.SearchPanel.SignUpButton:SkinButton()
 	LFGListFrame.SearchPanel.ScrollFrame.StartGroupButton:SkinButton()
@@ -376,15 +392,14 @@ local function LoadSkin()
 	LFGListFrame.SearchPanel.RefreshButton:SetSize(24, 24)
 	LFGListFrame.SearchPanel.RefreshButton.Icon:SetPoint("CENTER")
 
+	LFGListFrame.SearchPanel.FilterButton:SetPoint("LEFT", LFGListFrame.SearchPanel.SearchBox, "RIGHT", 5, 0)
+
 	T.SkinEditBox(LFGListFrame.SearchPanel.SearchBox)
-	T.SkinScrollBar(LFGListFrame.SearchPanel.ScrollFrame.scrollBar)
 
 	T.SkinCloseButton(PVEFrameCloseButton)
 	T.SkinCloseButton(LFGDungeonReadyStatusCloseButton, nil, "-")
 	T.SkinCloseButton(LFGDungeonReadyDialogCloseButton, LFGDungeonReadyDialog, "-")
 
-	T.SkinScrollBar(LFGListApplicationViewerScrollFrameScrollBar)
-	T.SkinScrollBar(LFDQueueFrameSpecificListScrollFrameScrollBar)
 	LFDQueueFrameSpecificListScrollFrameScrollBackgroundTopLeft:SetTexture(nil)
 	LFDQueueFrameSpecificListScrollFrameScrollBackgroundBottomRight:SetTexture(nil)
 	LFDQueueFrameRandomScrollFrameScrollBackground:SetTexture(nil)
@@ -422,7 +437,7 @@ local function LoadSkin()
 	LFGListInviteDialog.AcknowledgeButton:SkinButton()
 	LFGListInviteDialog.AcceptButton:SkinButton()
 	LFGListInviteDialog.DeclineButton:SkinButton()
-	
+
 	T.SkinEditBox(LFGListApplicationDialogDescription)
 	T.SkinEditBox(LFGListFrame.EntryCreation.Name, nil, 17)
 	T.SkinEditBox(LFGListFrame.EntryCreation.ItemLevel.EditBox, nil, 17)
@@ -439,7 +454,7 @@ local function LoadSkin()
 	LFGListFrame.ApplicationViewer.InfoBackground:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	T.SkinCheckBox(LFGListFrame.ApplicationViewer.AutoAcceptButton)
 	LFGListFrame.ApplicationViewer.Inset:StripTextures()
-	LFGListFrame.ApplicationViewer.Inset:SetTemplate("Transparent")	
+	LFGListFrame.ApplicationViewer.Inset:SetTemplate("Transparent")
 	LFGListFrame.ApplicationViewer.NameColumnHeader:SkinButton(true)
 	LFGListFrame.ApplicationViewer.RoleColumnHeader:SkinButton(true)
 	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SkinButton(true)
@@ -448,7 +463,7 @@ local function LoadSkin()
 	LFGListFrame.ApplicationViewer.RoleColumnHeader:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.RoleColumnHeader:SetPoint("LEFT", LFGListFrame.ApplicationViewer.NameColumnHeader, "RIGHT", 1, 0)
 	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:ClearAllPoints()
-	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SetPoint("LEFT", LFGListFrame.ApplicationViewer.RoleColumnHeader, "RIGHT", 1, 0)	
+	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SetPoint("LEFT", LFGListFrame.ApplicationViewer.RoleColumnHeader, "RIGHT", 1, 0)
 	LFGListFrame.ApplicationViewer.RefreshButton:SkinButton()
 	LFGListFrame.ApplicationViewer.RefreshButton:SetSize(24,24)
 	LFGListFrame.ApplicationViewer.RefreshButton:ClearAllPoints()
@@ -459,7 +474,6 @@ local function LoadSkin()
 	LFGListFrame.ApplicationViewer.RemoveEntryButton:SetPoint("BOTTOMLEFT", -1, 3)
 	LFGListFrame.ApplicationViewer.EditButton:ClearAllPoints()
 	LFGListFrame.ApplicationViewer.EditButton:SetPoint("BOTTOMRIGHT", -6, 3)
-	T.SkinScrollBar(LFGListApplicationViewerScrollFrameScrollBar)
 	LFGListApplicationViewerScrollFrameScrollBar:ClearAllPoints()
 	LFGListApplicationViewerScrollFrameScrollBar:SetPoint("TOPLEFT", LFGListFrame.ApplicationViewer.Inset, "TOPRIGHT", 0, -14)
 	LFGListApplicationViewerScrollFrameScrollBar:SetPoint("BOTTOMLEFT", LFGListFrame.ApplicationViewer.Inset, "BOTTOMRIGHT", 0, 14)
