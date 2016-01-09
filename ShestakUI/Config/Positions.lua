@@ -66,6 +66,7 @@ C["position"] = {
 		["focus_castbar"] = {"CENTER", UIParent, "CENTER", 0, 250},					-- Focus Castbar icon
 		["class_bar"] = {"BOTTOM", "oUF_Player", "TOP", 0, 7},						-- Class bar
 	},
+	-- Filger positions
 	filger = {
 		player_buff = {"BOTTOMRIGHT", "oUF_Player", "TOPRIGHT", 2, 173},	-- "P_BUFF"
 		player_proc = {"BOTTOMRIGHT", "oUF_Player", "TOPRIGHT", 2, 213},	-- "P_PROC"

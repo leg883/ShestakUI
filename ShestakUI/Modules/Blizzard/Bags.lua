@@ -129,8 +129,18 @@ end
 local trashButton = {}
 local trashBag = {}
 
+local upgrades = {
+	["1"] = 8, ["373"] = 4, ["374"] = 8, ["375"] = 4, ["376"] = 4, ["377"] = 4,
+	["379"] = 4, ["380"] = 4, ["446"] = 4, ["447"] = 8, ["452"] = 8, ["454"] = 4,
+	["455"] = 8, ["457"] = 8, ["459"] = 4, ["460"] = 8, ["461"] = 12, ["462"] = 16,
+	["466"] = 4, ["467"] = 8, ["469"] = 4, ["470"] = 8, ["471"] = 12, ["472"] = 16,
+	["477"] = 4, ["478"] = 8, ["480"] = 8, ["492"] = 4, ["493"] = 8, ["495"] = 4,
+	["496"] = 8, ["497"] = 12, ["498"] = 16, ["504"] = 12, ["505"] = 16, ["506"] = 20,
+	["507"] = 24, ["530"] = 5, ["531"] = 10
+}
+
 function Stuffing:SlotUpdate(b)
-	local texture, count, locked = GetContainerItemInfo(b.bag, b.slot)
+	local texture, count, locked, quality = GetContainerItemInfo(b.bag, b.slot)
 	local clink = GetContainerItemLink(b.bag, b.slot)
 	local isQuestItem, questId = GetContainerItemQuestInfo(b.bag, b.slot)
 
@@ -139,13 +149,23 @@ function Stuffing:SlotUpdate(b)
 		b.frame:SetBackdropBorderColor(unpack(C.media.border_color))
 	end
 
+	if C.bag.ilvl == true then
+		b.frame.text:SetText()
+	end
+
 	if b.cooldown and StuffingFrameBags and StuffingFrameBags:IsShown() then
 		local start, duration, enable = GetContainerItemCooldown(b.bag, b.slot)
 		CooldownFrame_SetTimer(b.cooldown, start, duration, enable)
 	end
 
 	if clink then
-		b.name, _, b.rarity, _, b.level = GetItemInfo(clink)
+		b.name, _, _, b.itemlevel, b.level = GetItemInfo(clink)
+
+		if C.bag.ilvl == true and b.itemlevel and b.itemlevel > 1 and quality > 1 then
+			local upgrade = clink:match(":(%d+)\124h%[")
+			if upgrades[upgrade] == nil then upgrades[upgrade] = 0 end
+			b.frame.text:SetText(b.itemlevel + upgrades[upgrade])
+		end
 
 		if (IsItemUnusable(clink) or b.level and b.level > T.level) and not locked then
 			_G[b.frame:GetName().."IconTexture"]:SetVertexColor(1, 0.1, 0.1)
@@ -154,13 +174,13 @@ function Stuffing:SlotUpdate(b)
 		end
 
 		-- Color slot according to item quality
-		if not b.frame.lock and b.rarity and b.rarity > 1 and not (isQuestItem or questId) then
-			b.frame:SetBackdropBorderColor(GetItemQualityColor(b.rarity))
+		if not b.frame.lock and quality and quality > 1 and not (isQuestItem or questId) then
+			b.frame:SetBackdropBorderColor(GetItemQualityColor(quality))
 		elseif isQuestItem or questId then
 			b.frame:SetBackdropBorderColor(1, 1, 0)
 		end
 	else
-		b.name, b.rarity, b.level = nil, nil, nil
+		b.name, b.level = nil, nil
 	end
 
 	SetItemButtonTexture(b.frame, texture)
@@ -198,6 +218,7 @@ function CreateReagentContainer()
 	Reagent:SetFrameLevel(_G["StuffingFrameBank"]:GetFrameLevel() + 5)
 	Reagent:EnableMouse(true)
 	Reagent:SetMovable(true)
+	Reagent:SetClampedToScreen(true)
 	Reagent:SetScript("OnMouseDown", function(self, button)
 		if IsShiftKeyDown() and button == "LeftButton" then
 			self:StartMoving()
@@ -265,6 +286,14 @@ function CreateReagentContainer()
 		button:ClearAllPoints()
 		button:SetSize(C.bag.button_size, C.bag.button_size)
 
+		local _, _, _, quality = GetContainerItemInfo(-3, i)
+		local clink = GetContainerItemLink(-3, i)
+		if clink then
+			if quality and quality > 1 then
+				button:SetBackdropBorderColor(GetItemQualityColor(quality))
+			end
+		end
+
 		if i == 1 then
 			button:SetPoint("TOPLEFT", Reagent, "TOPLEFT", 10, -27)
 			LastRowButton = button
@@ -296,7 +325,8 @@ function CreateReagentContainer()
 	MoneyFrame_Update(ReagentBankFrame.UnlockInfo.CostMoneyFrame, GetReagentBankCost())
 	ReagentBankFrameUnlockInfo:StripTextures()
 	ReagentBankFrameUnlockInfo:SetAllPoints(Reagent)
-	ReagentBankFrameUnlockInfo:SetTemplate("Overlay")
+	ReagentBankFrameUnlockInfo:SetTemplate("Transparent")
+	ReagentBankFrameUnlockInfo:SetFrameStrata("FULLSCREEN")
 	ReagentBankFrameUnlockInfoPurchaseButton:SkinButton()
 end
 
@@ -397,6 +427,12 @@ function Stuffing:SlotNew(bag, slot)
 		ret.count:SetFont(C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
 		ret.count:SetShadowOffset(C.font.bags_font_shadow and 1 or 0, C.font.bags_font_shadow and -1 or 0)
 		ret.count:SetPoint("BOTTOMRIGHT", 1, 1)
+
+		if C.bag.ilvl == true then
+			ret.frame:FontString("text", C.font.bags_font, C.font.bags_font_size, C.font.bags_font_style)
+			ret.frame.text:SetPoint("TOPLEFT", 1, -1)
+			ret.frame.text:SetTextColor(1, 1, 0)
+		end
 
 		local Battlepay = _G[ret.frame:GetName()].BattlepayItemTexture
 		if Battlepay then
@@ -924,7 +960,7 @@ function Stuffing:ADDON_LOADED(addon)
 	self:RegisterEvent("GUILDBANKFRAME_CLOSED")
 	self:RegisterEvent("PLAYERBANKSLOTS_CHANGED")
 	self:RegisterEvent("PLAYERBANKBAGSLOTS_CHANGED")
-	--self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
+	self:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED")
 	self:RegisterEvent("BAG_CLOSED")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
 	--self:RegisterEvent("REAGENTBANK_UPDATE")
@@ -971,6 +1007,21 @@ function Stuffing:PLAYERBANKSLOTS_CHANGED(id)
 
 	if self.bankFrame and self.bankFrame:IsShown() then
 		self:BagSlotUpdate(-1)
+	end
+end
+
+function Stuffing:PLAYERREAGENTBANKSLOTS_CHANGED()
+	for i = 1, 98 do
+		local button = _G["ReagentBankFrameItem" .. i]
+		local _, _, _, quality = GetContainerItemInfo(-3, i)
+		local clink = GetContainerItemLink(-3, i)
+		button:SetBackdropBorderColor(unpack(C.media.border_color))
+
+		if clink then
+			if quality and quality > 1 then
+				button:SetBackdropBorderColor(GetItemQualityColor(quality))
+			end
+		end
 	end
 end
 

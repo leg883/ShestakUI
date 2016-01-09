@@ -385,40 +385,6 @@ local function SkinObjects(frame, nameFrame)
 	hp.bg:SetTexture(1, 1, 1, 0.2)
 
 --	--增加目标提示★
---[[
-	hp.TargetIndicator = CreateFrame("Frame", self:GetName().."_TargetIndicator", hp)
-	hp.TargetIndicator:SetSize((C.nameplate.height * 2) + 11, (C.nameplate.height * 2) + 11)
-	hp.TargetIndicator:SetPoint("TOPRIGHT", hp, "TOPLEFT", -5, 2)
-	hp.TargetIndicator:SetTemplate("Transparent")
-	hp.TargetIndicator:SetScale(T.noscalemult)
-	hp.TargetIndicator:SetFrameLevel(hp:GetFrameLevel() -1 > 0 and hp:GetFrameLevel() -1 or 0)
-	
-	hp.TargetIndicator.P = CreateFrame("PlayerModel", nil, hp.TargetIndicator, "ModelTemplate")
-	hp.TargetIndicator.P:SetFrameLevel(hp.TargetIndicator:GetFrameLevel()+1)
-	hp.TargetIndicator.P:SetSize(100, 200)
-	hp.TargetIndicator.P:SetPoint("BOTTOM", hp.TargetIndicator, "BOTTOM", 0, 0)
-	hp.TargetIndicator.P:SetAlpha(1)
-	--hp.TargetIndicator.P:SetUnit("target")
-	--hp.TargetIndicator.P.guid = UnitGUID("target")
-	
-	hp.TargetIndicator.P:RegisterEvent("PLAYER_ENTERING_WORLD")
-	hp.TargetIndicator.P:RegisterEvent("UNIT_MODEL_CHANGED")
-	hp.TargetIndicator.P:RegisterEvent("UNIT_PORTRAIT_UPDATE")
-	hp.TargetIndicator.P:RegisterEvent("PLAYER_TARGET_CHANGED")
-	hp.TargetIndicator.P:SetScript("OnEvent", function(self, event)
-		hp.TargetIndicator.P:ClearModel()
-		hp.TargetIndicator.P:SetUnit("target")
-		hp.TargetIndicator.P.guid = UnitGUID("target")
-		local race, raceEn = UnitRace("target")
-		hp.TargetIndicator.P:SetCamDistanceScale(1)
-		local s = UIParent:GetScale()
-		hp.TargetIndicator.P:SetModelScale(0.66/s)		--(0.66/(OwD_DB["OwD_Scale"]*s)) 
-		hp.TargetIndicator.P:SetPortraitZoom(0.6)
-		hp.TargetIndicator.P:SetPosition(0, 0, -0.25)
-		hp.TargetIndicator.P:SetRotation(rad(30))
-	end)
-	]]
-
 	hp.TargetIndicator = CreateFrame("Frame", self:GetName().."_TargetIndicator", hp)
 	hp.TargetIndicator:SetFrameLevel(0)
 	hp.TargetIndicator:SetFrameStrata("BACKGROUND")
@@ -430,43 +396,6 @@ local function SkinObjects(frame, nameFrame)
 	hp.TargetIndicator:SetScale(T.noscalemult*5)
 	hp.TargetIndicator:SetOutside(hp, 3, 3)
 
---[[
-	hp.TargetIndicator.bordertop = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.bordertop:SetPoint("BOTTOM", hp, "TOP", T.noscalemult * 0, T.noscalemult * 3)
-	hp.TargetIndicator.bordertop:SetSize(T.noscalemult*140, T.noscalemult*20)
-	hp.TargetIndicator.bordertop:SetTexture("Interface\\AddOns\\zUI\\Media\\Loc-RedLine-Top")
-	hp.TargetIndicator.bordertop:SetBlendMode("ADD")
-	--hp.TargetIndicator.bordertop:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	hp.TargetIndicator.bordertop:SetVertexColor(1, 0, 1, 1)
-	hp.TargetIndicator.bordertop:SetDrawLayer("BORDER", -8)
-
-	hp.TargetIndicator.borderbottom = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.borderbottom:SetPoint("TOP", hp, "BOTTOM", T.noscalemult * 0, -T.noscalemult * 3)
-	hp.TargetIndicator.borderbottom:SetSize(T.noscalemult*140, T.noscalemult*20)
-	hp.TargetIndicator.borderbottom:SetTexture("Interface\\AddOns\\zUI\\Media\\Loc-RedLine-Bottom")
-	hp.TargetIndicator.borderbottom:SetBlendMode("ADD")
-	hp.TargetIndicator.borderbottom:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	--hp.TargetIndicator.borderbottom:SetVertexColor(1, 0, 1, 1)
-	hp.TargetIndicator.borderbottom:SetDrawLayer("BORDER", -8)
-]]--[[
-	hp.TargetIndicator.borderleft = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.borderleft:SetPoint("RIGHT", hp, "TOPLEFT", T.noscalemult * 0, T.noscalemult * 0)
-	hp.TargetIndicator.borderleft:SetSize(T.noscalemult*30, T.noscalemult*30)
-	hp.TargetIndicator.borderleft:SetTexture("Interface\\AddOns\\zUI\\Media\\left")
-	--hp.TargetIndicator.borderleft:SetBlendMode("ADD")
-	--hp.TargetIndicator.borderleft:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	--hp.TargetIndicator.borderleft:SetVertexColor(1, 0, 1, 1)
-	hp.TargetIndicator.borderleft:SetDrawLayer("BORDER", -8)
-	
-	hp.TargetIndicator.borderright = hp.TargetIndicator:CreateTexture(nil, "BORDER")
-	hp.TargetIndicator.borderright:SetPoint("LEFT", hp, "TOPRIGHT", T.noscalemult * 0, T.noscalemult * 0)
-	hp.TargetIndicator.borderright:SetSize(T.noscalemult*30, T.noscalemult*30)
-	hp.TargetIndicator.borderright:SetTexture("Interface\\AddOns\\zUI\\Media\\right")
-	--hp.TargetIndicator.borderright:SetBlendMode("ADD")
-	--hp.TargetIndicator.borderright:SetVertexColor(T.color.r, T.color.g, T.color.b)
-	--hp.TargetIndicator.borderright:SetVertexColor(1, 0, 1, 1)
-	hp.TargetIndicator.borderright:SetDrawLayer("BORDER", -8)
-]]
 	hp.TargetIndicator:Hide()
 --	--
 
@@ -505,7 +434,7 @@ local function SkinObjects(frame, nameFrame)
 		cb.name:SetTextColor(1, 1, 1)
 	end
 
-	-- Absorb Bar 
+	-- Absorb Bar
 	ab:ClearAllPoints()
 	frame.ab = ab
 
@@ -640,10 +569,14 @@ local function CheckBlacklist(frame, ...)
 	if C.nameplate.name_abbrev == true then return end
 	if T.PlateBlacklist[frame.hp.name:GetText()] then
 		frame:SetScript("OnUpdate", function() end)
-		frame.hp:Hide()
+		frame.hp:SetAlpha(0)
 		frame.cb:Hide()
 		frame.overlay:Hide()
 		frame.hp.oldlevel:Hide()
+		frame.hide = true
+	elseif frame.hide then
+		frame.hp:SetAlpha(1)
+		frame.hide = false
 	end
 end
 
@@ -667,7 +600,9 @@ local function ShowHealth(frame, ...)
 	local d = (valueHealth / maxHealth) * 100
 
 	if C.nameplate.health_value == true then
-		frame.hp.value:SetText(T.ShortValue(valueHealth).." - "..(string.format("%d%%", math.floor((valueHealth / maxHealth) * 100))))
+		-- Forcing percent only, due to possible bug in 6.2.2
+		--frame.hp.value:SetText(T.ShortValue(valueHealth).." - "..(string.format("%d%%", math.floor((valueHealth / maxHealth) * 100))))
+		frame.hp.value:SetText(string.format("%d%%", math.floor((valueHealth / maxHealth) * 100)))
 	end
 
 	-- Setup frame shadow to change depending on enemy players health, also setup targetted unit to have white shadow

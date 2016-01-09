@@ -102,12 +102,15 @@ local function LoadSkin()
 	-- Handle MasterPlan AddOn
 	do
 		local function skinMasterPlan()
+			T.SkinTab(GarrisonLandingPageTab4)
 			T.SkinTab(GarrisonMissionFrameTab3)
 			T.SkinTab(GarrisonMissionFrameTab4)
+			T.SkinTab(GarrisonShipyardFrameTab3)
 			local MissionPage = GarrisonMissionFrame.MissionTab.MissionPage
 			T.SkinCloseButton(MissionPage.MinimizeButton, nil, "-")
 			MissionPage.MinimizeButton:SetFrameLevel(MissionPage:GetFrameLevel() + 2)
 			MPCompleteAll:SkinButton()
+			MPPokeTentativeParties:SkinButton()
 		end
 
 		if IsAddOnLoaded("MasterPlan") then
