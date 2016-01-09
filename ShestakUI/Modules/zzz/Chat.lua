@@ -83,11 +83,56 @@ if C.zzz.Chat_HideLanguage == true then
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD") 
 	f:SetScript("OnEvent", function(self, event, ...)
+		-- 修改頻道保持
+		ChatTypeInfo.YELL.sticky = 0
+		ChatTypeInfo.RAID_WARNING.sticky = 0
+		ChatTypeInfo.WHISPER.sticky = 0
+		ChatTypeInfo.BN_WHISPER.sticky = 0
+		ChatTypeInfo.CHANNEL.sticky = 0
+	
+		-- 移动/隐藏聊天输入框语言按鈕
 		for i = 1, NUM_CHAT_WINDOWS do
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:ClearAllPoints()
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetPoint("right", ChatFrame1EditBox, "LEFT", 17, 0)
 			_G[format("ChatFrame%sEditBoxLanguage", i)]:SetAlpha(0) 
 		end
+		
+		-- 聊天“發送給”改為“TO”
+        CHAT_WHISPER_INFORM_GET = "To %s:\32"
+        CHAT_BN_WHISPER_INFORM_GET = "To %s:\32"
+		
+		--简化各种系统提示字符串
+		LOOT_ITEM = "%s + %s"
+		LOOT_ITEM_BONUS_ROLL = "%s + %s (bonus)"
+		LOOT_ITEM_BONUS_ROLL_MULTIPLE = "%s + %sx%d (bonus)"
+		LOOT_ITEM_BONUS_ROLL_SELF = "+ %s (bonus)"
+		LOOT_ITEM_BONUS_ROLL_SELF_MULTIPLE = "+ %sx%d (bonus)"
+		LOOT_ITEM_MULTIPLE = "%s + % sx%d"
+		LOOT_ITEM_PUSHED = "%s + %s"
+		LOOT_ITEM_PUSHED_MULTIPLE = "%s + %sx%d"
+		LOOT_ITEM_SELF = "+ %s"
+		LOOT_ITEM_SELF_MULTIPLE = "+ %s x%d"
+		LOOT_ITEM_PUSHED_SELF = "+ %s"
+		LOOT_ITEM_PUSHED_SELF_MULTIPLE = "+ %s x%d"
+		LOOT_MONEY = "|cff00a956+|r |cffffffff%s"
+		YOU_LOOT_MONEY = "|cff00a956+|r |cffffffff%s"
+		LOOT_MONEY_SPLIT = "|cff00a956+|r |cffffffff%s"
+		LOOT_ROLL_ALL_PASSED = "|HlootHistory:%d|h[Loot]|h: All passed on %s"
+		LOOT_ROLL_PASSED_AUTO = "%s passed %s (auto)"
+		LOOT_ROLL_PASSED_AUTO_FEMALE = "%s passed %s (auto)"
+		LOOT_ROLL_PASSED_SELF = "|HlootHistory:%d|h[Loot]|h: passed %s"
+		LOOT_ROLL_PASSED_SELF_AUTO = "|HlootHistory:%d|h[Loot]|h: passed %s (auto)"
+		-- 金银铜用图标表示
+		COPPER_AMOUNT = "%d\124TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0\124t"
+		SILVER_AMOUNT = "%d\124TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0\124t"
+		GOLD_AMOUNT = "%d\124TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0\124t"
+		-- Add quality colour for Poor items
+		LE_ITEM_QUALITY_COMMON = -1
+		BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_POOR] = { r = 0.61, g = 0.61, b = 0.61}
+		-- Change Common from grey to black
+		BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_COMMON] = { r = 0, g = 0, b = 0}
+		BAG_ITEM_QUALITY_COLORS[1] = { r = 0, g = 0, b = 0}
+		
 		
 		if event == "PLAYER_ENTERING_WORLD" then 
 			self:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -95,24 +140,6 @@ if C.zzz.Chat_HideLanguage == true then
 		end
 	end)
 end
-
----------------------------------------------------------------
--- 修改頻道保持
----------------------------------------------------------------
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD") 
-f:SetScript("OnEvent", function(self, event, ...)
-	ChatTypeInfo.YELL.sticky = 0
-	ChatTypeInfo.RAID_WARNING.sticky = 0
-	ChatTypeInfo.WHISPER.sticky = 0
-	ChatTypeInfo.BN_WHISPER.sticky = 0
-	ChatTypeInfo.CHANNEL.sticky = 0
-	
-	if event == "PLAYER_ENTERING_WORLD" then 
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		
-	end
-end)
 
 ---------------------------------------------------------------
 -- 輸入/bn直接發送通告

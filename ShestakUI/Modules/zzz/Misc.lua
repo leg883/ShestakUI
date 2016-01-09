@@ -143,3 +143,19 @@ if C.zzz.Misc_AutoSell == true then
 		end
 	end)
 end
+
+-------------------------------------------------------------------------------
+-- 地图素材更换
+-------------------------------------------------------------------------------
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+function frame:PLAYER_ENTERING_WORLD()
+	WorldMapPlayerUpper:EnableMouse(false)   --取消世界地圖角色箭頭互動   
+	WorldMapPlayerLower:EnableMouse(false)   --取消世界地圖角色箭頭互動   
+	Minimap:SetArchBlobRingScalar(0)  --取消小地圖考古追蹤圓環
+	Minimap:SetArchBlobRingAlpha(0)
+	Minimap:SetQuestBlobRingScalar(0)  --取消小地圖任務追蹤圓環
+	Minimap:SetQuestBlobRingAlpha(0)
+	Minimap:SetPlayerTexture("Interface\\AddOns\\zUI\\Media\\Minimap\\Arrow1")	--小地圖玩家箭头
+	
+	CURRENTLY_EQUIPPED = "|cFFFF8000".."    "..CURRENTLY_EQUIPPED.."    ".."\n|r"	--染色“当前装备”字样颜色
+end
