@@ -284,15 +284,15 @@ function Filger:DisplayActives()
 	end
 end
 
-function Filger:OnEvent(event, unit)
-	if event == "SPELL_UPDATE_COOLDOWN" or event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED" or event == "PLAYER_ENTERING_WORLD" or event == "UNIT_AURA" and (unit == "target" or unit == "player" or unit == "pet" or unit == "focus") then
+function Filger:OnEvent(event, unit, _, _, _, spellID)
+	if event == "SPELL_UPDATE_COOLDOWN" or event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED" or event == "PLAYER_ENTERING_WORLD" or event == "UNIT_AURA" or event == "UNIT_SPELLCAST_SUCCEEDED" and (unit == "target" or unit == "player" or unit == "pet" or unit == "focus") then
 		local ptt = GetSpecialization()
 		local needUpdate = false
 		local id = self.Id
 
 		for i = 1, #C["filger_spells"][T.class][id], 1 do
 			local data = C["filger_spells"][T.class][id][i]
-			if C.filger.disable_cd == true and (data.filter == "CD" or data.filter == "ICD") then return end
+			if C.filger.disable_cd == true and (data.filter == "CD" or (data.filter == "ICD" and data.trigger ~= "NONE")) then return end
 			local found = false
 			local name, icon, count, duration, start, spid
 			spid = 0
@@ -344,6 +344,11 @@ function Filger:OnEvent(event, unit)
 					local spn
 					spn, _, icon = GetSpellInfo(data.spellID)
 					name, _, _, _, _, _, _, _, _, _, spid = Filger:UnitDebuff("player", data.spellID, spn, data.absID)
+				elseif data.trigger == "NONE" then
+					if unit == "player" and spellID == data.spellID then
+						name, _, icon = GetSpellInfo(data.spellID)
+						spid = data.spellID
+					end
 				end
 				if name then
 					if data.slotID then
@@ -492,6 +497,9 @@ if C["filger_spells"] and C["filger_spells"][T.class] then
 				local data = C["filger_spells"][T.class][i][j]
 				if data.filter == "CD" then
 					frame:RegisterEvent("SPELL_UPDATE_COOLDOWN")
+					break
+				elseif data.trigger == "NONE" then
+					frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 					break
 				end
 			end

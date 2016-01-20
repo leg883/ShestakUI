@@ -88,7 +88,7 @@ local function Local(o)
 
 	-- Automation options
 	if o == "UIConfigautomation" then o = L_GUI_AUTOMATION end
-	if o == "UIConfigautomationresurrection" then o = L_GUI_AUTOMATION_RESURRECTION end
+	if o == "UIConfigautomationresurrection" then o = L_GUI_AUTOMATION_RELEASE end
 	if o == "UIConfigautomationscreenshot" then o = L_GUI_AUTOMATION_SCREENSHOT end
 	if o == "UIConfigautomationsolve_artifact" then o = L_GUI_AUTOMATION_SOLVE_ARTIFACT end
 	if o == "UIConfigautomationchefs_hat" then o = L_GUI_AUTOMATION_CHEFS_HAT end
@@ -371,6 +371,7 @@ local function Local(o)
 	if o == "UIConfigunitframeshow_total_value" then o = L_GUI_UF_TOTAL_VALUE end
 	if o == "UIConfigunitframecolor_value" then o = L_GUI_UF_COLOR_VALUE end
 	if o == "UIConfigunitframebar_color_value" then o = L_GUI_UF_BAR_COLOR_VALUE end
+	if o == "UIConfigunitframelines" then o = L_GUI_UF_LINES end
 	if o == "UIConfigunitframeunit_castbar" then o = L_GUI_UF_UNIT_CASTBAR end
 	if o == "UIConfigunitframecastbar_icon" then o = L_GUI_UF_CASTBAR_ICON end
 	if o == "UIConfigunitframecastbar_latency" then o = L_GUI_UF_CASTBAR_LATENCY end
@@ -769,9 +770,10 @@ function CreateUIConfig()
 
 	if not slider.bg then
 		slider.bg = CreateFrame("Frame", nil, slider)
-		slider.bg:SetPoint("TOPLEFT", slider:GetThumbTexture(), "TOPLEFT", 7, -7)
+		slider.bg:SetPoint("TOPLEFT", slider:GetThumbTexture(), "TOPLEFT", 10, -7)
 		slider.bg:SetPoint("BOTTOMRIGHT", slider:GetThumbTexture(), "BOTTOMRIGHT", -7, 7)
 		slider.bg:SetTemplate("Overlay")
+		slider:GetThumbTexture():SetAlpha(0)
 	end
 
 	local function sortMyTable(a, b)
@@ -839,6 +841,14 @@ function CreateUIConfig()
 	slider:SetValueStep(20)
 	slider:SetScript("OnValueChanged", function(self, value) group:SetVerticalScroll(value) end)
 
+	if not slider.bg then
+		slider.bg = CreateFrame("Frame", nil, slider)
+		slider.bg:SetPoint("TOPLEFT", slider:GetThumbTexture(), "TOPLEFT", 10, -7)
+		slider.bg:SetPoint("BOTTOMRIGHT", slider:GetThumbTexture(), "BOTTOMRIGHT", -7, 7)
+		slider.bg:SetTemplate("Overlay")
+		slider:GetThumbTexture():SetAlpha(0)
+	end
+ 
 	for i in pairs(ALLOWED_GROUPS) do
 		local frame = CreateFrame("Frame", "UIConfig"..i, UIConfigGroup)
 		frame:SetPoint("TOPLEFT")

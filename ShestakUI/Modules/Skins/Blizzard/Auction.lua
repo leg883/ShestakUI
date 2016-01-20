@@ -57,8 +57,8 @@ local function LoadSkin()
 		local iconBorder = Token.IconBorder
 	
 		Token.ItemBorder:Hide()
-			Token:StyleButton()
-			Token:CreateBackdrop("Transparent")
+		Token:StyleButton()
+		Token:CreateBackdrop("Transparent")
 	end
 
 	-- Progress Frame
@@ -204,6 +204,7 @@ local function LoadSkin()
 		T.SkinEditBox(_G[editbox])
 		_G[editbox]:SetTextInsets(1, 1, -1, 1)
 	end
+	_G["BrowseName"]:SetTextInsets(15, 15, -1, 1)
 	BrowseMaxLevel:SetPoint("LEFT", BrowseMinLevel, "RIGHT", 8, 0)
 	AuctionsStackSizeEntry.backdrop:SetAllPoints()
 	AuctionsNumStacksEntry.backdrop:SetAllPoints()

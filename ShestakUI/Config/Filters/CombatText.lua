@@ -141,6 +141,8 @@ elseif T.class == "MAGE" then
 		T.aoespam[157977] = 3		-- Unstable Magic
 		T.aoespam[153564] = 3		-- Meteor
 		T.aoespam[155158] = 3		-- Meteor Burn
+		T.aoespam[88084] = 3		-- Arcane Blast (Mirror Image)
+		T.aoespam[59638] = 3		-- Frostbolt (Mirror Image)
 	end
 elseif T.class == "MONK" then
 	if C.combattext.merge_aoe_spam then
@@ -257,6 +259,7 @@ elseif T.class == "ROGUE" then
 		T.aoespam[86392] = 3		-- Main Gauche
 		T.aoespam[157607] = 3		-- Instant Poison
 		T.aoespam[57841] = 3		-- Killing Spree
+		T.aoespam[1943] = 3			-- Rupture
 		T.merge[27576] = 5374		-- Mutilate Off-Hand
 		T.merge[113780] = 2818		-- Deadly Poison
 		T.merge[168908] = 16511		-- Hemorrhage
@@ -289,6 +292,7 @@ elseif T.class == "SHAMAN" then
 		T.aoespam[32175] = 0		-- Stormstrike
 		T.aoespam[114089] = 3		-- Windlash
 		T.aoespam[115357] = 0		-- Windstrike
+		T.aoespam[177601] = 3		-- Liquid Magma
 		T.merge[168477] = 421		-- Chain Lightning (Multi)
 		T.merge[168489] = 114074	-- Lava Beam (Multi)
 		T.merge[32176] = 32175		-- Stormstrike Off-Hand
@@ -358,26 +362,5 @@ elseif T.class == "WARRIOR" then
 		T.healfilter[117313] = true	-- Bloodthirst Heal
 		T.healfilter[55694] = true	-- Enraged Regeneration
 		T.healfilter[159363] = true	-- Blood Craze
-	end
-end
-
-for spell in pairs(T.aoespam) do
-	local name = GetSpellInfo(spell)
-	if not name then
-		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
-	end
-end
-
-for spell in pairs(T.merge) do
-	local name = GetSpellInfo(spell)
-	if not name then
-		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
-	end
-end
-
-for spell in pairs(T.healfilter) do
-	local name = GetSpellInfo(spell)
-	if not name then
-		print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Report this to Shestak.|r")
 	end
 end

@@ -117,6 +117,7 @@ if C.reminder.solo_buffs_enable == true then
 					1126,	-- Mark of the Wild
 				},
 				["negate_spells"] = {
+					160206,	-- Lone Wolf: Power of the Primates
 					159988,	-- Bark of the Wild (Dog)
 					160017,	-- Blessing of Kongs (Gorilla)
 					90363,	-- Embrace of the Shale Spider
@@ -137,6 +138,7 @@ if C.reminder.solo_buffs_enable == true then
 					61316,	-- Dalaran Brilliance
 				},
 				["negate_spells"] = {
+					160205,	-- Lone Wolf: Wisdom of the Serpent
 					126309,	-- Still Water (Water Strider)
 					128433,	-- Serpent's Cunning (Serpent)
 					90364,	-- Qiraji Fortitude (Silithid)
@@ -154,6 +156,7 @@ if C.reminder.solo_buffs_enable == true then
 				},
 				["negate_spells"] = {
 					1126,	-- Mark of the Wild
+					160206,	-- Lone Wolf: Power of the Primates
 					159988,	-- Bark of the Wild (Dog)
 					160017,	-- Blessing of Kongs (Gorilla)
 					90363,	-- Embrace of the Shale Spider
@@ -171,6 +174,7 @@ if C.reminder.solo_buffs_enable == true then
 				},
 				["negate_spells"] = {
 					91126,	-- Mark of the Wild
+					160206,	-- Lone Wolf: Power of the Primates
 					159988,	-- Bark of the Wild (Dog)
 					160017,	-- Blessing of Kongs (Gorilla)
 					90363,	-- Embrace of the Shale Spider
@@ -199,6 +203,8 @@ if C.reminder.solo_buffs_enable == true then
 				},
 				["negate_spells"] = {
 					1126,	-- Mark of the Wild
+					160206,	-- Lone Wolf: Power of the Primates
+					159988,	-- Bark of the Wild (Dog)
 					160017,	-- Blessing of Kongs (Gorilla)
 					90363,	-- Embrace of the Shale Spider
 					160077,	-- Strength of the Earth (Worm)
@@ -219,6 +225,7 @@ if C.reminder.solo_buffs_enable == true then
 				["negate_spells"] = {
 					155522,	-- Power of the Grave
 					24907,	-- Moonkin Aura
+					160198,	-- Lone Wolf: Grace of the Cat
 					93435,	-- Roar of Courage (Cat)
 					160039,	-- Keen Senses (Hydra)
 					160073,	-- Plainswalking (Tallstrider)
@@ -239,6 +246,8 @@ if C.reminder.solo_buffs_enable == true then
 					21562,	-- Power Word: Fortitude
 				},
 				["negate_spells"] = {
+					160199,	-- Lone Wolf: Fortitude of the Bear
+					50256,	-- Invigorating Roar (Bear)
 					90364,	-- Qiraji Fortitude (Silithid)
 					160003,	-- Savage Vigor (Rylak)
 					160014,	-- Sturdiness (Goat)
@@ -289,11 +298,12 @@ if C.reminder.solo_buffs_enable == true then
 					109773,	-- Dark Intent
 				},
 				["negate_spells"] = {
-					1459,	-- Arcane Brilliance
-					61316,	-- Dalaran Brilliance
+					160205,	-- Lone Wolf: Wisdom of the Serpent
 					126309,	-- Still Water (Water Strider)
 					128433,	-- Serpent's Cunning (Serpent)
 					90364,	-- Qiraji Fortitude (Silithid)
+					1459,	-- Arcane Brilliance
+					61316,	-- Dalaran Brilliance
 				},
 				["combat"] = true,
 				["instance"] = true,
@@ -306,6 +316,8 @@ if C.reminder.solo_buffs_enable == true then
 					469,	-- Commanding Shout
 				},
 				["negate_spells"] = {
+					160199,	-- Lone Wolf: Fortitude of the Bear
+					50256,	-- Invigorating Roar (Bear)
 					90364,	-- Qiraji Fortitude (Silithid)
 					160003,	-- Savage Vigor (Rylak)
 					160014,	-- Sturdiness (Goat)

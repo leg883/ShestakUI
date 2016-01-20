@@ -338,7 +338,7 @@ local function Shared(self, unit)
 			if C.unitframe_class_bar.totem == true then
 				self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", classbaranchor)
 				--self.TotemBar:SetFrameLevel(self.Health:GetFrameLevel() + 2)
-				self.TotemBar:CreateBackdrop("Default")
+				--self.TotemBar:CreateBackdrop("Default")
 				self.TotemBar:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
 				self.TotemBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 				self.TotemBar.Destroy = true
@@ -349,6 +349,7 @@ local function Shared(self, unit)
 					self.TotemBar[i]:SetPoint("LEFT", self.TotemBar, "LEFT", 0, 0)
 					self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 					self.TotemBar[i]:SetMinMaxValues(0, 1)
+					self.TotemBar[i]:CreateBorder(false, true)
 
 					self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 					self.TotemBar[i].bg:SetAllPoints()
@@ -493,7 +494,7 @@ local function Shared(self, unit)
 		-- Totem bar
 		if C.unitframe_class_bar.totem == true and T.class == "SHAMAN" then
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", classbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
 			self.TotemBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 			self.TotemBar.Destroy = true
@@ -514,6 +515,7 @@ local function Shared(self, unit)
 				end
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -564,7 +566,7 @@ local function Shared(self, unit)
 			if C.unitframe_class_bar.totem == true then
 				self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", classbaranchor)
 				--self.TotemBar:SetFrameLevel(self.Health:GetFrameLevel() + 2)
-				self.TotemBar:CreateBackdrop("Default")
+				--self.TotemBar:CreateBackdrop("Default")
 				self.TotemBar:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
 				self.TotemBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 				self.TotemBar.Destroy = true
@@ -579,6 +581,7 @@ local function Shared(self, unit)
 					end
 					self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 					self.TotemBar[i]:SetMinMaxValues(0, 1)
+					self.TotemBar[i]:CreateBorder(false, true)
 
 					self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 					self.TotemBar[i].bg:SetAllPoints()
@@ -593,7 +596,7 @@ local function Shared(self, unit)
 			if C.unitframe_class_bar.totem == true then
 				self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", classbaranchor)
 				--self.TotemBar:SetFrameLevel(self.Health:GetFrameLevel() + 2)
-				self.TotemBar:CreateBackdrop("Default")
+				--self.TotemBar:CreateBackdrop("Default")
 				self.TotemBar:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
 				self.TotemBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 				self.TotemBar.Destroy = true
@@ -604,6 +607,7 @@ local function Shared(self, unit)
 					self.TotemBar[i]:SetPoint("LEFT", self.TotemBar, "LEFT", 0, 0)
 					self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 					self.TotemBar[i]:SetMinMaxValues(0, 1)
+					self.TotemBar[i]:CreateBorder(false, true)
 
 					self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 					self.TotemBar[i].bg:SetAllPoints()
@@ -617,7 +621,7 @@ local function Shared(self, unit)
 		if C.unitframe_class_bar.totem == true and T.class == "MAGE" then
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", classbaranchor)
 			--self.TotemBar:SetFrameLevel(self.Health:GetFrameLevel() + 2)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", classbaranchor, "BOTTOM", 0, 0)
 			self.TotemBar:SetSize(C.unitframe_class_bar.width, C.unitframe_class_bar.height)
 			self.TotemBar.Destroy = true
@@ -632,6 +636,7 @@ local function Shared(self, unit)
 				end
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -834,7 +839,7 @@ local function Shared(self, unit)
 		end
 
 		if unit == "player" then
-			self.Debuffs = CreateFrame("Frame", self:GetName().."_PlayerAura", self)
+			self.Debuffs = CreateFrame("Frame", self:GetName().."_Debuffs", self)
 			self.Debuffs:SetHeight(165)
 			self.Debuffs:SetWidth(221)
 			self.Debuffs.size = T.Scale(25)
@@ -848,7 +853,7 @@ local function Shared(self, unit)
 		end
 
 		if unit == "target" then
-			self.Auras = CreateFrame("Frame", self:GetName().."_TargetAura", self)
+			self.Auras = CreateFrame("Frame", self:GetName().."_Aura", self)
 			self.Auras:SetPoint("BOTTOMLEFT", self, "TOPLEFT", -2, 5)
 			self.Auras.initialAnchor = "BOTTOMLEFT"
 			self.Auras["growth-x"] = "RIGHT"
@@ -1634,39 +1639,39 @@ SLASH_TEST_UF3 = "/testuf"
 SLASH_TEST_UF4 = "/еуыега"
 
 ----------------------------------------------------------------------------------------
---	Player line
+--	Player/Target line
 ----------------------------------------------------------------------------------------
-local HorizontalPlayerLine = CreateFrame("Frame", "HorizontalPlayerLine", oUF_Player)
-HorizontalPlayerLine:CreatePanel("ClassColor", 228, 1, "TOPLEFT", "oUF_Player", "BOTTOMLEFT", -5, -5)
-
-local VerticalPlayerLine = CreateFrame("Frame", "VerticalPlayerLine", oUF_Player)
-VerticalPlayerLine:CreatePanel("ClassColor", 1, 98, "RIGHT", HorizontalPlayerLine, "LEFT", 0, 13)
-
-----------------------------------------------------------------------------------------
---	Target line
-----------------------------------------------------------------------------------------
-local HorizontalTargetLine = CreateFrame("Frame", "HorizontalTargetLine", oUF_Target)
-HorizontalTargetLine:CreatePanel("ClassColor", 228, 1, "TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 5, -5)
-HorizontalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
-HorizontalTargetLine:SetScript("OnEvent", function(self)
-	local _, class = UnitClass("target")
-	local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
-	if color then
-		self:SetBackdropBorderColor(color.r, color.g, color.b)
-	else
-		self:SetBackdropBorderColor(unpack(C.media.border_color))
-	end
-end)
-
-local VerticalTargetLine = CreateFrame("Frame", "VerticalTargetLine", oUF_Target)
-VerticalTargetLine:CreatePanel("ClassColor", 1, 98, "LEFT", HorizontalTargetLine, "RIGHT", 0, 13)
-VerticalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
-VerticalTargetLine:SetScript("OnEvent", function(self)
-	local _, class = UnitClass("target")
-	local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
-	if color then
-		self:SetBackdropBorderColor(color.r, color.g, color.b)
-	else
-		self:SetBackdropBorderColor(unpack(C.media.border_color))
-	end
-end)
+if C.unitframe.lines == true then
+	-- 玩家横线
+	local HorizontalPlayerLine = CreateFrame("Frame", "HorizontalPlayerLine", oUF_Player)
+	HorizontalPlayerLine:CreatePanel("ClassColor", 228, 1, "TOPLEFT", "oUF_Player", "BOTTOMLEFT", -5, -5)
+	-- 玩家竖线
+	local VerticalPlayerLine = CreateFrame("Frame", "VerticalPlayerLine", oUF_Player)
+	VerticalPlayerLine:CreatePanel("ClassColor", 1, 98, "RIGHT", HorizontalPlayerLine, "LEFT", 0, 13)
+	-- 目标横线
+	local HorizontalTargetLine = CreateFrame("Frame", "HorizontalTargetLine", oUF_Target)
+	HorizontalTargetLine:CreatePanel("ClassColor", 228, 1, "TOPRIGHT", "oUF_Target", "BOTTOMRIGHT", 5, -5)
+	HorizontalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
+	HorizontalTargetLine:SetScript("OnEvent", function(self)
+		local _, class = UnitClass("target")
+		local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+		if color then
+			self:SetBackdropBorderColor(color.r, color.g, color.b)
+		else
+			self:SetBackdropBorderColor(unpack(C.media.border_color))
+		end
+	end)
+	-- 目标竖线
+	local VerticalTargetLine = CreateFrame("Frame", "VerticalTargetLine", oUF_Target)
+	VerticalTargetLine:CreatePanel("ClassColor", 1, 98, "LEFT", HorizontalTargetLine, "RIGHT", 0, 13)
+	VerticalTargetLine:RegisterEvent("PLAYER_TARGET_CHANGED")
+	VerticalTargetLine:SetScript("OnEvent", function(self)
+		local _, class = UnitClass("target")
+		local color = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+		if color then
+			self:SetBackdropBorderColor(color.r, color.g, color.b)
+		else
+			self:SetBackdropBorderColor(unpack(C.media.border_color))
+		end
+	end)
+end

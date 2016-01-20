@@ -69,11 +69,11 @@ L_MISC_SCROLL = "附魔卷轴"
 L_RAID_UTIL_DISBAND = "解散团队"
 
 -- Zone name
-L_ZONE_WINTERGRASP = "冬拥湖"
 L_ZONE_TOLBARAD = "托尔巴拉德"
 L_ZONE_TOLBARADPEN = "托尔巴拉德半岛"
 L_ZONE_ARATHIBASIN = "阿拉希盆地"
 L_ZONE_GILNEAS = "吉尔尼斯之战"
+L_ZONE_ANCIENTDALARAN = "达拉然巨坑"
 
 -- WatchFrame Wowhead link
 L_WATCH_WOWHEAD_LINK = "Wowhead链接"

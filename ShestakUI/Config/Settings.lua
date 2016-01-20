@@ -87,7 +87,7 @@ C["announcements"] = {
 --	Automation options
 ----------------------------------------------------------------------------------------
 C["automation"] = {
-	["resurrection"] = true,					-- Auto resurrection in battlegrounds
+	["release"] = true,							-- Auto release the spirit in battlegrounds
 	["screenshot"] = false,						-- Take screenshot when player get achievement
 	["solve_artifact"] = true,					-- Auto popup for solve artifact
 	["chefs_hat"] = true,						-- Auto equip Chef's Hat
@@ -435,6 +435,7 @@ C["unitframe"] = {
 	["show_total_value"] = false,				-- Display of info text on player and target with XXXX/Total
 	["color_value"] = false,					-- Health/mana value is colored
 	["bar_color_value"] = false,				-- Health bar color by current health remaining
+	["lines"] = true,							-- Show Player and Target lines
 	-- Cast bars
 	["unit_castbar"] = true,					-- Show castbars
 	["castbar_icon"] = false,					-- Show castbar icons

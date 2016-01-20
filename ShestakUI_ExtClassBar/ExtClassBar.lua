@@ -154,7 +154,7 @@ local function Shared(self, unit)
 
 			-- Statue bar
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", extclassbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, height+space)
 			self.TotemBar:SetSize(width, height)
 			self.TotemBar.Destroy = true
@@ -165,6 +165,7 @@ local function Shared(self, unit)
 				self.TotemBar[i]:SetPoint("LEFT", self.TotemBar, "LEFT", 0, 0)
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -279,7 +280,7 @@ local function Shared(self, unit)
 		-- Totem bar
 		if T.class == "SHAMAN" then
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", extclassbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, height+space)
 			self.TotemBar:SetSize(width, height)
 			self.TotemBar.Destroy = true
@@ -300,6 +301,7 @@ local function Shared(self, unit)
 				end
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -346,7 +348,7 @@ local function Shared(self, unit)
 
 			-- Mushroom bar
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", extclassbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, height+space)
 			self.TotemBar:SetSize(width, height)
 			self.TotemBar.Destroy = true
@@ -361,6 +363,7 @@ local function Shared(self, unit)
 				end
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -372,7 +375,7 @@ local function Shared(self, unit)
 		-- Mocking Banner bar
 		if T.class == "WARRIOR" then
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", extclassbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, height+space)
 			self.TotemBar:SetSize(width, height)
 			self.TotemBar.Destroy = true
@@ -383,6 +386,7 @@ local function Shared(self, unit)
 				self.TotemBar[i]:SetPoint("LEFT", self.TotemBar, "LEFT", 0, 0)
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
@@ -394,7 +398,7 @@ local function Shared(self, unit)
 		-- Rune of Power bar
 		if T.class == "MAGE" then
 			self.TotemBar = CreateFrame("Frame", self:GetName().."_TotemBar", extclassbaranchor)
-			self.TotemBar:CreateBackdrop("Default")
+			--self.TotemBar:CreateBackdrop("Default")
 			self.TotemBar:SetPoint("BOTTOM", extclassbaranchor, "BOTTOM", 0, height+space)
 			self.TotemBar:SetSize(width, height)
 			self.TotemBar.Destroy = true
@@ -409,6 +413,7 @@ local function Shared(self, unit)
 				end
 				self.TotemBar[i]:SetStatusBarTexture(C.media.texture)
 				self.TotemBar[i]:SetMinMaxValues(0, 1)
+				self.TotemBar[i]:CreateBorder(false, true)
 
 				self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, "BORDER")
 				self.TotemBar[i].bg:SetAllPoints()
